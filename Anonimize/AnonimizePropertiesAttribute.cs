@@ -9,35 +9,87 @@ namespace Anonimize
 {
     /// <summary>Represents the base class for custom attributes.</summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
-    public sealed class AnonimizePropertiesAttribute : AddINotifyPropertyChangedInterfaceAttribute
+    public sealed class AnonimizePropertiesAttribute : Attribute
     {
         readonly HashSet<string> encryptedProperties;
         readonly HashSet<string> decryptedProperties;
+        readonly Type classType;
 
-        public AnonimizePropertiesAttribute(params string[] properties)
+        public AnonimizePropertiesAttribute(Type type, params string[] properties)
         {
             encryptedProperties = new HashSet<string>();
             decryptedProperties = new HashSet<string>();
+            classType = type;
 
             foreach (var property in properties)
             {
-                var isEncrypted = property.StartsWith("_", StringComparison.Ordinal);
-                var encryptedProperty = isEncrypted ? property : $"_{property}";
-                var decryptedProperty = isEncrypted ? property.TrimStart('_') : property;
-
-                encryptedProperties.Add(encryptedProperty);
-                decryptedProperties.Add(decryptedProperty);
+                AddDecryptable(ToDecryptablePropertyName(property));
+                AddEncryptable(ToEncryptablePropertyName(property));
             }
         }
 
-        public bool IsEncryptedProperty(string property)
+        public bool IsDecryptable(string property)
+        {
+            return decryptedProperties.Contains(property);
+        }
+
+        public bool IsEncryptable(string property)
         {
             return encryptedProperties.Contains(property);
         }
 
-        public bool IsDecryptedProperty(string property)
+        public string ToDecryptablePropertyName(string property)
         {
-            return decryptedProperties.Contains(property);
+            if (string.IsNullOrWhiteSpace(property))
+                throw new ArgumentOutOfRangeException(nameof(property), $"Invalid property name: '{property}'");
+
+            if (!property.StartsWith("_"))
+                return property;
+
+            return property.TrimStart('_');
+        }
+
+        public string ToEncryptablePropertyName(string property)
+        {
+            if (string.IsNullOrWhiteSpace(property))
+                throw new ArgumentOutOfRangeException(nameof(property), $"Invalid property name: '{property}'");
+
+            if (property.StartsWith("_"))
+                return property;
+
+            return $"_{property}";
+        }
+
+        void AddDecryptable(string property)
+        {
+            if (IsDecryptable(property))
+                return;
+
+            AssertHasProperty(property);
+
+            decryptedProperties.Add(property);
+        }
+
+        void AddEncryptable(string property)
+        {
+            if (IsEncryptable(property))
+                return;
+
+            AssertHasProperty(property);
+
+            encryptedProperties.Add(property);
+        }
+
+        void AssertHasProperty(string property)
+        {
+            try
+            {
+                var prop = classType.GetProperty(property, typeof(string));
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException(nameof(property), $"Property '{property}' in type '{classType.Name}'");
+            }
         }
     }
 }
