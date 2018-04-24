@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,20 +12,46 @@ namespace Anonimize
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
     public sealed class AnonimizePropertiesAttribute : Attribute
     {
-        readonly HashSet<string> encryptedProperties;
-        readonly HashSet<string> decryptedProperties;
         readonly Type classType;
+
+        readonly HashSet<string> decryptedProperties;
+
+        readonly HashSet<string> encryptedProperties;
 
         public AnonimizePropertiesAttribute(Type type, params string[] properties)
         {
             encryptedProperties = new HashSet<string>();
             decryptedProperties = new HashSet<string>();
-            classType = type;
+            classType = type ?? throw new ArgumentNullException(nameof(type), "Type must not be null");
 
             foreach (var property in properties)
             {
-                AddDecryptable(ToDecryptablePropertyName(property));
-                AddEncryptable(ToEncryptablePropertyName(property));
+                AddDecryptable(property);
+                AddEncryptable(property);
+            }
+        }
+
+        public Type ClassType
+        {
+            get
+            {
+                return classType;
+            }
+        }
+
+        public HashSet<string> DecryptedProperties
+        {
+            get
+            {
+                return decryptedProperties;
+            }
+        }
+
+        public HashSet<string> EncryptedProperties
+        {
+            get
+            {
+                return encryptedProperties;
             }
         }
 
@@ -38,58 +65,47 @@ namespace Anonimize
             return encryptedProperties.Contains(property);
         }
 
-        public string ToDecryptablePropertyName(string property)
+        /// <summary>
+        /// Asserts if the type has a property with the specified name that returns a string
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="name"></param>
+        /// <exception cref="ArgumentException">If property is missing or it doesn't return type of string</exception>
+        static void AssertTypeHasProperty(Type type, string name)
         {
-            if (string.IsNullOrWhiteSpace(property))
-                throw new ArgumentOutOfRangeException(nameof(property), $"Invalid property name: '{property}'");
-
-            if (!property.StartsWith("_"))
-                return property;
-
-            return property.TrimStart('_');
-        }
-
-        public string ToEncryptablePropertyName(string property)
-        {
-            if (string.IsNullOrWhiteSpace(property))
-                throw new ArgumentOutOfRangeException(nameof(property), $"Invalid property name: '{property}'");
-
-            if (property.StartsWith("_"))
-                return property;
-
-            return $"_{property}";
+            var typeofString = typeof(string);
+            try
+            {
+                var prop = type.GetProperty(name, typeofString);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException($"Property '{name}' is missing in type '{type.Name}' or it doesn't return '{typeofString.Name}'", nameof(name));
+            }
         }
 
         void AddDecryptable(string property)
         {
+            property = AnonimizeService.ToDecryptablePropertyName(property);
+
             if (IsDecryptable(property))
                 return;
 
-            AssertHasProperty(property);
+            AssertTypeHasProperty(classType, property);
 
             decryptedProperties.Add(property);
         }
 
         void AddEncryptable(string property)
         {
+            property = AnonimizeService.ToEncryptablePropertyName(property);
+
             if (IsEncryptable(property))
                 return;
 
-            AssertHasProperty(property);
+            AssertTypeHasProperty(classType, property);
 
             encryptedProperties.Add(property);
-        }
-
-        void AssertHasProperty(string property)
-        {
-            try
-            {
-                var prop = classType.GetProperty(property, typeof(string));
-            }
-            catch (Exception)
-            {
-                throw new ArgumentException(nameof(property), $"Property '{property}' in type '{classType.Name}'");
-            }
         }
     }
 }

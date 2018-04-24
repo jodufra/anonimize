@@ -49,11 +49,33 @@ namespace Anonimize
             }
         }
 
+        public static string ToDecryptablePropertyName(string property)
+        {
+            if (string.IsNullOrWhiteSpace(property))
+                throw new ArgumentOutOfRangeException(nameof(property), $"Property name mustn't be null, or empty or only white spaces.");
+
+            if (!property.StartsWith("_", StringComparison.Ordinal))
+                return property;
+
+            return property.TrimStart('_');
+        }
+
+        public static string ToEncryptablePropertyName(string property)
+        {
+            if (string.IsNullOrWhiteSpace(property))
+                throw new ArgumentOutOfRangeException(nameof(property), $"Property name mustn't be null, or empty or only white spaces.");
+
+            if (property.StartsWith("_", StringComparison.Ordinal))
+                return property;
+
+            return $"_{property}";
+        }
+
         static void Encrypt(object sender, string propertyName)
         {
             var input = GetValue<string>(sender, propertyName);
             var output = CryptoService.Encrypt(input);
-            var propertyNameOutput = $"_{propertyName}";
+            var propertyNameOutput = ToEncryptablePropertyName(propertyName);
             SetValue(sender, propertyNameOutput, output);
         }
 
@@ -61,7 +83,7 @@ namespace Anonimize
         {
             var input = GetValue<string>(sender, propertyName);
             var output = CryptoService.Encrypt(input);
-            var propertyNameOutput = propertyName.TrimStart('_');
+            var propertyNameOutput = ToDecryptablePropertyName(propertyName);
             SetValue(sender, propertyNameOutput, output);
         }
 

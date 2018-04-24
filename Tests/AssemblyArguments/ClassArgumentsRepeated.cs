@@ -9,11 +9,10 @@ using PropertyChanged;
 namespace Tests
 {
     [AddINotifyPropertyChangedInterface]
-    [AnonimizeProperties(typeof(ClassWithRepeatedArguments), nameof(Property1), nameof(Property1), nameof(Property2), nameof(_Property2))]
+    [AnonimizeProperties(typeof(ClassWithRepeatedArguments), nameof(Property1), nameof(Property1), nameof(_Property1), nameof(_Property1))]
     public class ClassWithRepeatedArguments
     {
         public string Property1 { get; set; }
-        public string Property2 { get; set; }
-        public string _Property2 { get; set; }
+        public string _Property1 { get; set; }
     }
 }

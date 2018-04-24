@@ -9,10 +9,9 @@ using PropertyChanged;
 namespace Tests
 {
     [AddINotifyPropertyChangedInterface]
-    [AnonimizeProperties(typeof(ClassWithMissingProperties), nameof(Property1), nameof(_Property2))]
-    public class ClassWithMissingProperties
+    [AnonimizeProperties(typeof(ClassPropertiesMissing), nameof(Property1))]
+    public class ClassPropertiesMissing
     {
         public string Property1 { get; set; }
-        public string _Property2 { get; set; }
     }
 }
