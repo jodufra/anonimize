@@ -59,12 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyArguments\ClassArgumentsWhiteSpace.cs" />
-    <Compile Include="AssemblyArguments\ClassArgumentsEmpty.cs" />
-    <Compile Include="AssemblyArguments\ClassArgumentsRepeated.cs" />
-    <Compile Include="AssemblyArguments\ClassArgumentsNull.cs" />
-    <Compile Include="AssemblyProperties\ClassPropertiesMissing.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="AnonimizePropertiesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

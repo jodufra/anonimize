@@ -45,10 +45,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anonimize.cs" />
+    <Compile Include="AnonimizeProperties.cs" />
     <Compile Include="AnonimizePropertiesAttribute.cs" />
-    <Compile Include="AnonimizeService.cs" />
-    <Compile Include="CryptoService.cs" />
+    <Compile Include="Services\AnonimizeService.cs" />
+    <Compile Include="Services\CryptoService.cs" />
+    <Compile Include="Exceptions\Abstract\AnonimizeMissingException.cs" />
+    <Compile Include="Exceptions\Abstract\AnonimizeEmptyException.cs" />
+    <Compile Include="Exceptions\Abstract\AnonimizeNullOrEmptyException.cs" />
+    <Compile Include="Exceptions\PropertyNullOrEmptyException.cs" />
+    <Compile Include="Exceptions\PropertyMissingException.cs" />
+    <Compile Include="Exceptions\PropertyEmptyException.cs" />
+    <Compile Include="Exceptions\PropertyNullException.cs" />
+    <Compile Include="Exceptions\TypeNullException.cs" />
+    <Compile Include="Services\IAnonimizeService.cs" />
+    <Compile Include="Services\ICryptoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Exceptions\Abstract\AnonimizeNullException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
