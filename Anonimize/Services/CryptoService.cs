@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Anonimize.Services
 {
-    public class CryptoService : ICryptoService
+    public sealed class CryptoService : ICryptoService
     {
         static byte[] tripleDES_IV = { 125, 6, 87, 63, 172, 2, 173, 69 };
 
@@ -38,7 +38,7 @@ namespace Anonimize.Services
         /// Decrypts the specified input using <see cref="MD5CryptoServiceProvider"/> and <see cref="TripleDESCryptoServiceProvider"/>.
         /// </summary>
         /// <param name="input">The input to be decrypted</param>
-        /// <returns>The decrypted input or empty if the input is not decryptable</returns>
+        /// <returns>The decrypted input; <see cref="String.Empty"/> if the input is not decryptable</returns>
         public string Decrypt(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -92,7 +92,7 @@ namespace Anonimize.Services
         /// Encrypts the specified input using <see cref="MD5CryptoServiceProvider"/> and <see cref="TripleDESCryptoServiceProvider"/>.
         /// </summary>
         /// <param name="input">The input to be encrypted</param>
-        /// <returns>The encrypted input or empty if the input is not encryptable</returns>
+        /// <returns>The encrypted input; <see cref="String.Empty"/> if the input is not encryptable</returns>
         public string Encrypt(string input)
         {
             if (string.IsNullOrWhiteSpace(input))

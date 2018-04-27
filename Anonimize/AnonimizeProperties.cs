@@ -34,10 +34,17 @@ namespace Anonimize
             decryptedProperties = new HashSet<string>();
             encryptedProperties = new HashSet<string>();
 
+            Anonimize.PropertyDenominatorChanged += OnPropertyDenominatorChanged;
+
             foreach (var property in properties)
             {
                 AddProperty(property);
             }
+        }
+
+        ~AnonimizeProperties()
+        {
+            Anonimize.PropertyDenominatorChanged -= OnPropertyDenominatorChanged;
         }
 
         /// <summary>
@@ -77,7 +84,7 @@ namespace Anonimize
         /// Adds the property.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
-        /// <exception cref="PropertyMissingException">If property is missing or it doesn't return type of string</exception>
+        /// <exception cref="PropertyMissingException">If property is missing or doesn't return type of string</exception>
         public void AddProperty(string propertyName)
         {
             AddDecryptedProperty(propertyName);
@@ -85,25 +92,25 @@ namespace Anonimize
         }
 
         /// <summary>
-        /// Determines whether the specified property is decryptable.
+        /// Determines whether the specified property is decrypted.
         /// </summary>
         /// <param name="property">The property.</param>
         /// <returns>
-        ///   <c>true</c> if the specified property is decryptable; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified property is decrypted; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsDecryptable(string property)
+        public bool IsDecrypted(string property)
         {
             return decryptedProperties.Contains(property);
         }
 
         /// <summary>
-        /// Determines whether the specified property is encryptable.
+        /// Determines whether the specified property is encrypted
         /// </summary>
         /// <param name="property">The property.</param>
         /// <returns>
-        ///   <c>true</c> if the specified property is encryptable; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified property is encrypted; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsEncryptable(string property)
+        public bool IsEncrypted(string property)
         {
             return encryptedProperties.Contains(property);
         }
@@ -131,7 +138,7 @@ namespace Anonimize
         {
             propertyName = Anonimize.ToDecryptedPropertyName(propertyName);
 
-            if (IsDecryptable(propertyName))
+            if (IsDecrypted(propertyName))
                 return;
 
             AssertTypeHasStringProperty(classType, propertyName);
@@ -147,12 +154,40 @@ namespace Anonimize
         {
             propertyName = Anonimize.ToEncryptedPropertyName(propertyName);
 
-            if (IsEncryptable(propertyName))
+            if (IsEncrypted(propertyName))
                 return;
 
             AssertTypeHasStringProperty(classType, propertyName);
 
             encryptedProperties.Add(propertyName);
+        }
+
+        /// <summary>
+        /// Called when [property denominator changed].
+        /// </summary>
+        void OnPropertyDenominatorChanged()
+        {
+            var properties = new List<string>();
+
+            if (decryptedProperties.Any(p => p.StartsWith(Anonimize.DecryptedPropertyDenominator)) || decryptedProperties.Any(p => p.StartsWith(Anonimize.EncryptedPropertyDenominator)))
+            {
+                properties.AddRange(decryptedProperties);
+            }
+            else if (encryptedProperties.Any(p => p.StartsWith(Anonimize.DecryptedPropertyDenominator)) || encryptedProperties.Any(p => p.StartsWith(Anonimize.EncryptedPropertyDenominator)))
+            {
+                properties.AddRange(encryptedProperties);
+            }
+
+            if (!properties.Any())
+                return;
+
+            decryptedProperties.Clear();
+            encryptedProperties.Clear();
+
+            foreach (var property in properties)
+            {
+                AddProperty(property);
+            }
         }
     }
 }

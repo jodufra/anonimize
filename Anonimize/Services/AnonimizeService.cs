@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Anonimize.Services
 {
-    public class AnonimizeService : IAnonimizeService
+    public sealed class AnonimizeService : IAnonimizeService
     {
         readonly Dictionary<Type, AnonimizeProperties> typePropertiesDictionary;
 
@@ -47,11 +47,11 @@ namespace Anonimize.Services
 
             var properties = typePropertiesDictionary[type];
 
-            if (properties.IsEncryptable(eventArgs.PropertyName))
+            if (properties.IsEncrypted(eventArgs.PropertyName))
             {
                 Decrypt(sender, eventArgs.PropertyName);
             }
-            else if (properties.IsDecryptable(eventArgs.PropertyName))
+            else if (properties.IsDecrypted(eventArgs.PropertyName))
             {
                 Encrypt(sender, eventArgs.PropertyName);
             }

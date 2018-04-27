@@ -1,15 +1,14 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using Anonimize;
 using Anonimize.Exceptions;
-using PropertyChanged;
+using Tests.Assembly;
 
 namespace Tests
 {
     public class AnonimizePropertiesTest
     {
         [Fact]
-        public void ContructorTypeNullThrowsException()
+        public void Contructor_NullType_ThrowsException()
         {
             Assert.Throws<TypeNullException>(() => new AnonimizeProperties(null));
             Assert.Throws<TypeNullException>(() => new AnonimizeProperties(null, null));
@@ -17,15 +16,14 @@ namespace Tests
         }
 
         [Fact]
-        public void ContructorPropertiesNullThrowsException()
+        public void Contructor_NullProperties_ThrowsException()
         {
             Assert.Throws<PropertyNullException>(() => new AnonimizeProperties(typeof(ClassBase), null));
         }
 
         [Fact]
-        public void AddMissingPropertiesThrowsException()
+        public void AddProperty_MissingProperties_ThrowsException()
         {
-            var baseClass = new ClassWithMissingProperties();
             var anonimizeProperties = new AnonimizeProperties(typeof(ClassWithMissingProperties));
 
             Assert.Throws<PropertyMissingException>(() => anonimizeProperties.AddProperty(nameof(ClassWithMissingProperties.Property1)));
@@ -33,9 +31,8 @@ namespace Tests
         }
 
         [Fact]
-        public void AddPrivatePropertiesThrowsException()
+        public void AddProperty_PrivateProperties_ThrowsException()
         {
-            var baseClass = new ClassWithPrivateProperties();
             var anonimizeProperties = new AnonimizeProperties(typeof(ClassWithPrivateProperties));
 
             Assert.Throws<PropertyMissingException>(() => anonimizeProperties.AddProperty(nameof(ClassWithPrivateProperties.Property1)));
@@ -43,9 +40,8 @@ namespace Tests
         }
 
         [Fact]
-        public void AddNonStringPropertiesThrowsException()
+        public void AddProperty_NonStringProperties_ThrowsException()
         {
-            var baseClass = new ClassWithNonStringProperties();
             var anonimizeProperties = new AnonimizeProperties(typeof(ClassWithNonStringProperties));
 
             Assert.Throws<PropertyMissingException>(() => anonimizeProperties.AddProperty(nameof(ClassWithNonStringProperties.PropertyStruct)));
@@ -54,44 +50,24 @@ namespace Tests
             Assert.Throws<PropertyMissingException>(() => anonimizeProperties.AddProperty(nameof(ClassWithNonStringProperties.PropertyClass)));
         }
 
-        enum EBase { }
-
-        interface IBase { }
-
-        struct SBase { }
-
-        class ClassBase
+        [Fact]
+        public void AddProperty_RegistersEncryptedAndDecryptedProperty()
         {
-            public string Property1 { get; set; }
-            public string _Property1 { get; set; }
-            public string Property2 { get; set; }
-            public string _Property2 { get; set; }
-        }
+            var anonimizeProperties = new AnonimizeProperties(typeof(ClassWithProperties));
 
-        class ClassWithMissingProperties
-        {
-            public string Property1 { get; set; }
-            public string _Property2 { get; set; }
-        }
+            // Add decrypted property
+            anonimizeProperties.AddProperty(nameof(ClassWithProperties.Property1));
+            Assert.True(anonimizeProperties.IsDecrypted(nameof(ClassWithProperties.Property1)));
+            Assert.True(anonimizeProperties.IsEncrypted(nameof(ClassWithProperties._Property1)));
+            Assert.True(anonimizeProperties.DecryptedProperties.Contains(nameof(ClassWithProperties.Property1)));
+            Assert.True(anonimizeProperties.EncryptedProperties.Contains(nameof(ClassWithProperties._Property1)));
 
-        class ClassWithPrivateProperties
-        {
-            public string Property1 { get; set; }
-            private string _Property1 { get; set; }
-            private string Property2 { get; set; }
-            public string _Property2 { get; set; }
-        }
-
-        class ClassWithNonStringProperties
-        {
-            public SBase PropertyStruct { get; set; }
-            public SBase _PropertyStruct { get; set; }
-            public EBase PropertyEnum { get; set; }
-            public EBase _PropertyEnum { get; set; }
-            public IBase PropertyInterface { get; set; }
-            public IBase _PropertyInterface { get; set; }
-            public ClassBase PropertyClass { get; set; }
-            public ClassBase _PropertyClass { get; set; }
+            // Add encrypted property
+            anonimizeProperties.AddProperty(nameof(ClassWithProperties._Property2));
+            Assert.True(anonimizeProperties.IsDecrypted(nameof(ClassWithProperties.Property2)));
+            Assert.True(anonimizeProperties.IsEncrypted(nameof(ClassWithProperties._Property2)));
+            Assert.True(anonimizeProperties.DecryptedProperties.Contains(nameof(ClassWithProperties.Property2)));
+            Assert.True(anonimizeProperties.EncryptedProperties.Contains(nameof(ClassWithProperties._Property2)));
         }
     }
 }

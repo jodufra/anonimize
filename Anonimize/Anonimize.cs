@@ -19,7 +19,21 @@ namespace Anonimize
 
         static string encryptedPropertyDenominator = "_";
 
+        static readonly string encryptedPropertyDenominatorDefault = "_";
+
         static string decryptedPropertyDenominator = string.Empty;
+
+        static readonly string decryptedPropertyDenominatorDefault = string.Empty;
+
+        /// <summary>
+        /// Represents the method that will handle the <see cref="PropertyDenominatorChanged"/> event raised when a property denominator is changed.
+        /// </summary>
+        public delegate void PropertyDenominatorChangedEventHandler();
+
+        /// <summary>
+        /// Occurs when [property denominator changed].
+        /// </summary>
+        public static event PropertyDenominatorChangedEventHandler PropertyDenominatorChanged; 
 
         /// <summary>
         /// Gets the default lazily initialized instance of <see cref="AnonimizeService"/>.
@@ -78,6 +92,14 @@ namespace Anonimize
         }
 
         /// <summary>
+        /// Sets the default property denominators.
+        /// </summary>
+        public static void SetDefaultPropertyDenominators()
+        {
+            SetPropertyDenominators(encryptedPropertyDenominatorDefault, decryptedPropertyDenominatorDefault);
+        }
+
+        /// <summary>
         /// Sets the property denominators.
         /// </summary>
         /// <param name="encryptedPropertyDenominator">The encrypted property denominator.</param>
@@ -101,6 +123,8 @@ namespace Anonimize
 
             Anonimize.encryptedPropertyDenominator = encryptedPropertyDenominator;
             Anonimize.decryptedPropertyDenominator = decryptedPropertyDenominator;
+
+            PropertyDenominatorChanged?.Invoke();
         }
 
         /// <summary>
