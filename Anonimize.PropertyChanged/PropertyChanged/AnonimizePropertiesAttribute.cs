@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Anonimize
+namespace Anonimize.PropertyChanged
 {
     /// <summary>
-    /// Represents the attribute that registers the class type and the properties in <see cref="Anonimize.AnonimizeService"/>.
+    /// Represents the attribute that registers the class type and properties.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
     public sealed class AnonimizePropertiesAttribute : Attribute
@@ -15,7 +15,7 @@ namespace Anonimize
         /// <param name="properties">The properties.</param>
         public AnonimizePropertiesAttribute(Type type, params string[] properties)
         {
-            Anonimize.AnonimizeService.Register(type, properties);
+            AnonimizeProvider.GetInstance().GetPropertyChangedService().Register(type, properties);
         }
     }
 }

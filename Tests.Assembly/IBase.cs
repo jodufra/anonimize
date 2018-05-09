@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Tests.Assembly
 {
-    interface IBase { }
+    public interface IBase { }
 }

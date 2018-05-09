@@ -1,9 +1,9 @@
 ﻿using Xunit;
-using Anonimize;
 using Anonimize.Exceptions;
 using Tests.Assembly;
+using Anonimize.PropertyChanged;
 
-namespace Tests
+namespace Tests.Anonimize
 {
     public class AnonimizePropertiesTest
     {

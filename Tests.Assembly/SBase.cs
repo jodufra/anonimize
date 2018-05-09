@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Tests.Assembly
 {
-    struct SBase { }
+    public struct SBase { }
 }

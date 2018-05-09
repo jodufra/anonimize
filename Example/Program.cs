@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Example
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var user = new User();
+            var user = new Person();
+
+            Console.WriteLine("### EXAMPLE ###");
 
             user.Name = "My Name";
             user.Email = "email@example.com";

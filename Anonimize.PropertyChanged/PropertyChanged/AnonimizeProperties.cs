@@ -4,13 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Anonimize
+namespace Anonimize.PropertyChanged
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class AnonimizeProperties
     {
+        readonly AnonimizeService anonimize;
+
         readonly Type classType;
 
         readonly HashSet<string> decryptedProperties;
@@ -26,6 +28,7 @@ namespace Anonimize
         /// <exception cref="PropertyNullException">properties is null</exception>
         public AnonimizeProperties(Type type, params string[] properties)
         {
+            anonimize = AnonimizeProvider.GetInstance();
             classType = type ?? throw new TypeNullException(nameof(type));
 
             if (properties == null)
@@ -34,7 +37,7 @@ namespace Anonimize
             decryptedProperties = new HashSet<string>();
             encryptedProperties = new HashSet<string>();
 
-            Anonimize.PropertyDenominatorChanged += OnPropertyDenominatorChanged;
+            anonimize.AddPropertyDenominatorChangedHandler(OnPropertyDenominatorChanged);
 
             foreach (var property in properties)
             {
@@ -44,7 +47,7 @@ namespace Anonimize
 
         ~AnonimizeProperties()
         {
-            Anonimize.PropertyDenominatorChanged -= OnPropertyDenominatorChanged;
+            anonimize.RemovePropertyDenominatorChangedHandler(OnPropertyDenominatorChanged);
         }
 
         /// <summary>
@@ -136,7 +139,7 @@ namespace Anonimize
         /// <param name="propertyName">Name of the property.</param>
         void AddDecryptedProperty(string propertyName)
         {
-            propertyName = Anonimize.ToDecryptedPropertyName(propertyName);
+            propertyName = anonimize.ToDecryptedPropertyName(propertyName);
 
             if (IsDecrypted(propertyName))
                 return;
@@ -152,7 +155,7 @@ namespace Anonimize
         /// <param name="propertyName">Name of the property.</param>
         void AddEncryptedProperty(string propertyName)
         {
-            propertyName = Anonimize.ToEncryptedPropertyName(propertyName);
+            propertyName = anonimize.ToEncryptedPropertyName(propertyName);
 
             if (IsEncrypted(propertyName))
                 return;
@@ -169,11 +172,13 @@ namespace Anonimize
         {
             var properties = new List<string>();
 
-            if (decryptedProperties.Any(p => p.StartsWith(Anonimize.DecryptedPropertyDenominator)) || decryptedProperties.Any(p => p.StartsWith(Anonimize.EncryptedPropertyDenominator)))
+            if (decryptedProperties.Any(p => p.StartsWith(anonimize.GetEncryptedPropertyDenominator(), StringComparison.Ordinal)) ||
+                decryptedProperties.Any(p => p.StartsWith(anonimize.GetDecryptedPropertyDenominator(), StringComparison.Ordinal)))
             {
                 properties.AddRange(decryptedProperties);
             }
-            else if (encryptedProperties.Any(p => p.StartsWith(Anonimize.DecryptedPropertyDenominator)) || encryptedProperties.Any(p => p.StartsWith(Anonimize.EncryptedPropertyDenominator)))
+            else if (encryptedProperties.Any(p => p.StartsWith(anonimize.GetDecryptedPropertyDenominator(), StringComparison.Ordinal)) ||
+                encryptedProperties.Any(p => p.StartsWith(anonimize.GetEncryptedPropertyDenominator(), StringComparison.Ordinal)))
             {
                 properties.AddRange(encryptedProperties);
             }

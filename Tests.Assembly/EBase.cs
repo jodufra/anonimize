@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Tests.Assembly
 {
-    enum EBase { }
+    public enum EBase { }
 }

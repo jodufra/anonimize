@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Tests.Assembly
 {
-    class ClassBase { }
+   public class ClassBase { }
 }

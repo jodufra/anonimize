@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Anonimize.PropertyChanged;
+using System;
 using System.ComponentModel;
 
 namespace Anonimize.Services
 {
-    public interface IAnonimizeService
+    public interface IPropertyChangedService
     {
         /// <summary>
         /// Called when [instance created] in order to set the instance event <c>PropertyChanged</c> to <c>OnPropertyChanged.</c>
@@ -31,5 +32,13 @@ namespace Anonimize.Services
         /// <param name="type">The type.</param>
         /// <param name="properties">The properties.</param>
         void Register(Type type, params string[] properties);
+
+        /// <summary>
+        /// Registers the specified type and properties.
+        /// </summary>
+        /// <typeparam name="T">Type that implements <see cref="INotifyPropertyChanged"/>.</typeparam>
+        /// <param name="instance">The type.</param>
+        /// <param name="properties">The properties.</param>
+        void Register<T>(T instance, Func<string[]> properties) where T : class, INotifyPropertyChanged;
     }
 }

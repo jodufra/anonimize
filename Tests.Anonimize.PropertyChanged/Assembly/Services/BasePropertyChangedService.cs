@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Anonimize;
 using Anonimize.Services;
+using Anonimize.PropertyChanged;
 
 namespace Tests.Assembly.Services
 {
-    class BaseAnonimizeService : IAnonimizeService
+    class BasePropertyChangedService : IPropertyChangedService
     {
         public void OnInstanceCreated<T>(T instance) where T : class, INotifyPropertyChanged
         {

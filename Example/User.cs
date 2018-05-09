@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Anonimize;
+using PropertyChanged;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Anonimize;
 
 namespace Example
 {
-    [AnonimizeProperties(typeof(User), nameof(Name), nameof(Email), nameof(Address))]
-    public class User : INotifyPropertyChanged
+    [AddINotifyPropertyChangedInterface]
+    public class Person
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public User()
+        public Person()
         {
-            Anonimize.Anonimize.AnonimizeService.OnInstanceCreated(this);
+            var anonimize = AnonimizeProvider.GetInstance();
+            var service = anonimize.GetPropertyChangedService();            
+            service.Register((INotifyPropertyChanged)this, () => new string[]{
+                nameof(Name),
+                nameof(Email),
+                nameof(Address)
+            });
         }
 
         public string Name { get; set; }

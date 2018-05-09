@@ -4,18 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{341C424C-8FAA-4BDD-A517-F2BA029FC3A3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Example</RootNamespace>
-    <AssemblyName>Example</AssemblyName>
+    <ProjectGuid>{1DAE0018-19B4-4B94-ACC2-3DABCBB22B4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Anonimize</RootNamespace>
+    <AssemblyName>Anonimize.PropertyChanged</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,23 +45,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="AnonimizeExtensions.cs" />
+    <Compile Include="Exceptions\Abstract\AnonimizeEmptyException.cs" />
+    <Compile Include="Exceptions\Abstract\AnonimizeMissingException.cs" />
+    <Compile Include="Exceptions\Abstract\AnonimizeNullException.cs" />
+    <Compile Include="Exceptions\Abstract\AnonimizeNullOrEmptyException.cs" />
+    <Compile Include="Exceptions\PropertyEmptyException.cs" />
+    <Compile Include="Exceptions\PropertyMissingException.cs" />
+    <Compile Include="Exceptions\PropertyNullException.cs" />
+    <Compile Include="Exceptions\PropertyNullOrEmptyException.cs" />
+    <Compile Include="Exceptions\TypeNullException.cs" />
+    <Compile Include="PropertyChanged\AnonimizeProperties.cs" />
+    <Compile Include="PropertyChanged\AnonimizePropertiesAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Services\PropertyChangedService.cs" />
+    <Compile Include="Services\IPropertyChangedService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Anonimize.PropertyChanged\Anonimize.PropertyChanged.csproj">
-      <Project>{1dae0018-19b4-4b94-acc2-3dabcbb22b4c}</Project>
-      <Name>Anonimize.PropertyChanged</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Anonimize\Anonimize.csproj">
       <Project>{d5949f35-7c85-4eb7-a2d7-916acf02c1d5}</Project>
       <Name>Anonimize</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
