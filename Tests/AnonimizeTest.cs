@@ -16,7 +16,7 @@ namespace Tests.Anonimize
             var anonimize = AnonimizeProvider.GetInstance();
             var service = anonimize.GetCryptoService();
             Assert.NotNull(service);
-            Assert.IsType(typeof(CryptoService), service);
+            Assert.IsType(typeof(MD5TripleDESCryptoService), service);
 
             anonimize.SetCryptoService(new BaseCryptoService());
             service = anonimize.GetCryptoService();
@@ -26,7 +26,7 @@ namespace Tests.Anonimize
             anonimize.SetCryptoService(null);
             service = anonimize.GetCryptoService();
             Assert.NotNull(service);
-            Assert.IsType(typeof(CryptoService), service);
+            Assert.IsType(typeof(MD5TripleDESCryptoService), service);
         }
 
 

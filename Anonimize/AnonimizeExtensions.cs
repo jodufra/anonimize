@@ -1,12 +1,11 @@
-﻿using Anonimize.Exceptions;
-using Anonimize.Services;
+﻿using Anonimize.Services;
 using System;
 
 namespace Anonimize
 {
     public static class AnonimizeExtensions
     {
-        static readonly Lazy<ICryptoService> cryptoServiceDefault = new Lazy<ICryptoService>(() => new CryptoService());
+        static readonly Lazy<ICryptoService> cryptoServiceDefault = new Lazy<ICryptoService>(() => new MD5TripleDESCryptoService());
 
         static ICryptoService cryptoServiceOverride;
 

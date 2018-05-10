@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Assembly", "Tests.Ass
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Anonimize.PropertyChanged", "Tests.Anonimize.PropertyChanged\Tests.Anonimize.PropertyChanged.csproj", "{F43752B9-365D-4411-A101-C766663445B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anonimize.NHibernate", "Anonimize.NHibernate\Anonimize.NHibernate.csproj", "{9EF26654-C3B7-4F23-962F-A9BF3C6062B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{F43752B9-365D-4411-A101-C766663445B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F43752B9-365D-4411-A101-C766663445B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F43752B9-365D-4411-A101-C766663445B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EF26654-C3B7-4F23-962F-A9BF3C6062B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF26654-C3B7-4F23-962F-A9BF3C6062B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF26654-C3B7-4F23-962F-A9BF3C6062B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF26654-C3B7-4F23-962F-A9BF3C6062B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

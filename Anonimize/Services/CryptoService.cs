@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Anonimize.Services
 {
-    public sealed class CryptoService : ICryptoService
+    public sealed class MD5TripleDESCryptoService : ICryptoService
     {
-        static byte[] tripleDES_IV = { 125, 6, 87, 63, 172, 2, 173, 69 };
+        static byte[] iv = { 125, 6, 87, 63, 172, 2, 173, 69 };
 
-        static string tripleDES_Key = "Anonimize:Key";
+        static string key = "Anonimize:Key";
 
         /// <summary>
         /// Gets or sets the triple DES iv.
@@ -16,10 +16,10 @@ namespace Anonimize.Services
         /// <value>
         /// The triple DES iv.
         /// </value>
-        public static byte[] TripleDES_IV
+        public static byte[] IV
         {
-            get => tripleDES_IV;
-            set => tripleDES_IV = value;
+            get => iv;
+            set => iv = value;
         }
 
         /// <summary>
@@ -28,10 +28,10 @@ namespace Anonimize.Services
         /// <value>
         /// The triple DES key.
         /// </value>
-        public static string TripleDES_Key
+        public static string Key
         {
-            get => tripleDES_Key;
-            set => tripleDES_Key = value;
+            get => key;
+            set => key = value;
         }
 
         /// <summary>
@@ -77,10 +77,10 @@ namespace Anonimize.Services
             byte[] outputBuffer;
             using (var des = new TripleDESCryptoServiceProvider())
             {
-                des.IV = TripleDES_IV;
+                des.IV = IV;
                 using (var md5 = new MD5CryptoServiceProvider())
                 {
-                    des.Key = md5.ComputeHash(Encoding.ASCII.GetBytes(TripleDES_Key));
+                    des.Key = md5.ComputeHash(Encoding.ASCII.GetBytes(Key));
                 }
 
                 outputBuffer = des.CreateDecryptor().TransformFinalBlock(inputBuffer, 0, inputBuffer.Length);
@@ -131,10 +131,10 @@ namespace Anonimize.Services
             byte[] outputBuffer;
             using (var des = new TripleDESCryptoServiceProvider())
             {
-                des.IV = TripleDES_IV;
+                des.IV = IV;
                 using (var md5 = new MD5CryptoServiceProvider())
                 {
-                    des.Key = md5.ComputeHash(Encoding.ASCII.GetBytes(TripleDES_Key));
+                    des.Key = md5.ComputeHash(Encoding.ASCII.GetBytes(Key));
                 }
 
                 outputBuffer = des.CreateEncryptor().TransformFinalBlock(inputBuffer, 0, inputBuffer.Length);
