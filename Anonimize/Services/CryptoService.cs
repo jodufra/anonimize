@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -89,6 +93,40 @@ namespace Anonimize.Services
         }
 
         /// <summary>
+        /// Decrypts the specified input.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>The decrypted input</returns>
+        public object Decrypt<T>(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return default(T);
+
+
+            byte[] inputBuffer;
+
+            try
+            {
+                inputBuffer = Convert.FromBase64String(input);
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
+
+            var outputBuffer = Decrypt(inputBuffer);
+
+            try
+            {
+                return Deserialize<T>(outputBuffer);
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
+        }
+
+        /// <summary>
         /// Encrypts the specified input using <see cref="MD5CryptoServiceProvider"/> and <see cref="TripleDESCryptoServiceProvider"/>.
         /// </summary>
         /// <param name="input">The input to be encrypted</param>
@@ -140,6 +178,58 @@ namespace Anonimize.Services
                 outputBuffer = des.CreateEncryptor().TransformFinalBlock(inputBuffer, 0, inputBuffer.Length);
             }
             return outputBuffer;
+        }
+
+        /// <summary>
+        /// Encrypts the specified input.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>The encrypted input</returns>
+        public string Encrypt<T>(T input)
+        {
+            if (EqualityComparer<T>.Default.Equals(input, default(T)))
+                return string.Empty;
+
+            byte[] inputBuffer;
+
+            try
+            {
+                inputBuffer = Serialize(input);
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+
+            var outputBuffer = Encrypt(inputBuffer);
+
+            try
+            {
+                return Convert.ToBase64String(outputBuffer);
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+        static byte[] Serialize<T>(T param)
+        {
+            using (var stream = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(stream, param);
+                return stream.GetBuffer();
+            }
+        }
+
+        static T Deserialize<T>(byte[] param)
+        {
+            using (var stream = new MemoryStream(param))
+            {
+                var formatter = new BinaryFormatter();
+                return (T)formatter.Deserialize(stream);
+            }
         }
     }
 }

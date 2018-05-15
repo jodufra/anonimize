@@ -46,6 +46,8 @@
     <Compile Include="AnonimizeProvider.cs" />
     <Compile Include="Services\AnonimizeService.cs" />
     <Compile Include="Services\CryptoService.cs" />
+    <Compile Include="Services\IDecryptService.cs" />
+    <Compile Include="Services\IEncryptService.cs" />
     <Compile Include="Services\ICryptoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
