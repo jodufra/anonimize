@@ -14,13 +14,6 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>The decrypted input</returns>
-        string Decrypt(string input);
-
-        /// <summary>
-        /// Decrypts the specified input.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <returns>The decrypted input</returns>
-        object Decrypt<T>(string input);
+        T Decrypt<T>(string input);
     }
 }

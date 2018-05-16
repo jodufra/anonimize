@@ -14,13 +14,6 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>The encrypted input</returns>
-        string Encrypt(string input);
-
-        /// <summary>
-        /// Encrypts the specified input.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <returns>The encrypted input</returns>
         string Encrypt<T>(T input);
     }
 }

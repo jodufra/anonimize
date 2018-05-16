@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Anonimize;
 using Anonimize.Services;
 using Anonimize.PropertyChanged;
 
@@ -28,6 +23,11 @@ namespace Tests.Assembly.Services
         }
 
         public void Register(Type type, params string[] properties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Register<T>(T instance, Func<string[]> properties) where T : class, INotifyPropertyChanged
         {
             throw new NotImplementedException();
         }

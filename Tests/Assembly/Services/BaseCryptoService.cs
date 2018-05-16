@@ -14,7 +14,7 @@ namespace Tests.Assembly.Services
             throw new NotImplementedException();
         }
 
-        public string Decrypt(string input)
+        public T Decrypt<T>(string input)
         {
             throw new NotImplementedException();
         }
@@ -24,7 +24,7 @@ namespace Tests.Assembly.Services
             throw new NotImplementedException();
         }
 
-        public string Encrypt(string input)
+        public string Encrypt<T>(T input)
         {
             throw new NotImplementedException();
         }

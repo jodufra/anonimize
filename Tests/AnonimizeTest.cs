@@ -1,10 +1,7 @@
 ﻿using Xunit;
 using Anonimize;
-using Anonimize.Exceptions;
-using Tests.Assembly;
 using Tests.Assembly.Services;
 using Anonimize.Services;
-using System;
 
 namespace Tests.Anonimize
 {

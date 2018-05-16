@@ -41,39 +41,6 @@ namespace Anonimize.Services
         /// <summary>
         /// Decrypts the specified input using <see cref="MD5CryptoServiceProvider"/> and <see cref="TripleDESCryptoServiceProvider"/>.
         /// </summary>
-        /// <param name="input">The input to be decrypted</param>
-        /// <returns>The decrypted input; <see cref="String.Empty"/> if the input is not decryptable</returns>
-        public string Decrypt(string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-                return string.Empty;
-
-            byte[] inputBuffer;
-
-            try
-            {
-                inputBuffer = Convert.FromBase64String(input);
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-
-            var outputBuffer = Decrypt(inputBuffer);
-
-            try
-            {
-                return Encoding.ASCII.GetString(outputBuffer);
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Decrypts the specified input using <see cref="MD5CryptoServiceProvider"/> and <see cref="TripleDESCryptoServiceProvider"/>.
-        /// </summary>
         /// <param name="inputBuffer">The input buffer.</param>
         /// <returns>The decripted input</returns>
         public byte[] Decrypt(byte[] inputBuffer)
@@ -97,12 +64,11 @@ namespace Anonimize.Services
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>The decrypted input</returns>
-        public object Decrypt<T>(string input)
+        public T Decrypt<T>(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
                 return default(T);
-
-
+            
             byte[] inputBuffer;
 
             try
@@ -123,39 +89,6 @@ namespace Anonimize.Services
             catch (Exception)
             {
                 return default(T);
-            }
-        }
-
-        /// <summary>
-        /// Encrypts the specified input using <see cref="MD5CryptoServiceProvider"/> and <see cref="TripleDESCryptoServiceProvider"/>.
-        /// </summary>
-        /// <param name="input">The input to be encrypted</param>
-        /// <returns>The encrypted input; <see cref="String.Empty"/> if the input is not encryptable</returns>
-        public string Encrypt(string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-                return string.Empty;
-
-            byte[] inputBuffer;
-
-            try
-            {
-                inputBuffer = Encoding.ASCII.GetBytes(input);
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-
-            var outputBuffer = Encrypt(inputBuffer);
-
-            try
-            {
-                return Convert.ToBase64String(outputBuffer);
-            }
-            catch (Exception)
-            {
-                return string.Empty;
             }
         }
 
@@ -215,19 +148,19 @@ namespace Anonimize.Services
 
         static byte[] Serialize<T>(T param)
         {
+            var formatter = new BinaryFormatter();
             using (var stream = new MemoryStream())
             {
-                var formatter = new BinaryFormatter();
                 formatter.Serialize(stream, param);
-                return stream.GetBuffer();
+                return stream.ToArray();
             }
         }
 
         static T Deserialize<T>(byte[] param)
         {
+            var formatter = new BinaryFormatter();
             using (var stream = new MemoryStream(param))
             {
-                var formatter = new BinaryFormatter();
                 return (T)formatter.Deserialize(stream);
             }
         }

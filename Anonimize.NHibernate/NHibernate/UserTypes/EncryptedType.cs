@@ -8,7 +8,7 @@ using System.Data;
 namespace Anonimize.NHibernate.UserTypes
 {
     [Serializable]
-    public class BaseEncryptedUserType<T> : AEncryptedUserType
+    public class EncryptedType<T> : AEncryptedType
     {
         public override bool IsMutable => false;
 

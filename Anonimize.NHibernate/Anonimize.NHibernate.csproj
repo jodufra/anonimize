@@ -58,9 +58,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NHibernate\UserTypes\EncryptedUserType.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedUserTypes.cs" />
-    <Compile Include="NHibernate\UserTypes\AEncryptedUserType.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedDateTime.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedDateTimeNullable.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedDecimal.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedDecimalNullable.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedDouble.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedDoubleNullable.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedFloat.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedFloatNullable.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedInt32.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedInt32Nullable.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedString.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedType.cs" />
+    <Compile Include="NHibernate\UserTypes\AEncryptedType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -111,7 +111,7 @@ namespace Anonimize.Services
         {
             var anonimize = AnonimizeProvider.GetInstance();
             var input = GetValue(obj, encriptedPropertyName);
-            var output = anonimize.GetCryptoService().Decrypt(input);
+            var output = anonimize.GetCryptoService().Decrypt<string>(input);
             var propertyNameOutput = anonimize.ToDecryptedPropertyName(encriptedPropertyName);
             SetValue(obj, propertyNameOutput, output);
         }

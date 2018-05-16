@@ -6,7 +6,7 @@ using System.Data.Common;
 
 namespace Anonimize.NHibernate.UserTypes
 {
-    public abstract class AEncryptedUserType : IUserType
+    public abstract class AEncryptedType : IUserType
     {
         /// <summary>
         /// Are objects of this type mutable?
