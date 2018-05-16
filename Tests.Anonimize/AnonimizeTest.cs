@@ -10,22 +10,23 @@ namespace Tests.Anonimize
         [Fact]
         public void CryptoService_ProvivesDefaultAndOverriddenService()
         {
+            var serviceTypeDefault = typeof(MD5TripleDESCryptoService);
+            var serviceTypeOverriden = typeof(BaseCryptoService);
+             
             var anonimize = AnonimizeProvider.GetInstance();
             var service = anonimize.GetCryptoService();
             Assert.NotNull(service);
-            Assert.IsType(typeof(MD5TripleDESCryptoService), service);
+            Assert.IsType(serviceTypeDefault, service);
 
             anonimize.SetCryptoService(new BaseCryptoService());
             service = anonimize.GetCryptoService();
             Assert.NotNull(service);
-            Assert.IsType(typeof(BaseCryptoService), service);
+            Assert.IsType(serviceTypeOverriden, service);
 
             anonimize.SetCryptoService(null);
             service = anonimize.GetCryptoService();
             Assert.NotNull(service);
-            Assert.IsType(typeof(MD5TripleDESCryptoService), service);
+            Assert.IsType(serviceTypeDefault, service);
         }
-
-
     }
 }

@@ -1,34 +1,40 @@
 ﻿using System;
+using Anonimize;
+using Anonimize.Services;
 
 namespace Example
 {
     class Program
     {
+        static ICryptoService service; 
+
         static void Main()
         {
-            var user = new Person();
+            service = AnonimizeProvider.GetInstance().GetCryptoService();
+            EncryptString("My example string");
+        }
 
-            Console.WriteLine("### EXAMPLE ###");
+        static void EncryptString(string original)
+        {
+            WriteHeader("String");
+            var encrypted = service.Encrypt(original);
+            var decrypted = service.Decrypt<string>(encrypted);
+            WriteResult(original, encrypted, decrypted);
+        }
 
-            user.Name = "My Name";
-            user.Email = "email@example.com";
-            user.Address = "Arround the corner street";
-
-            Console.WriteLine("Name:");
-            Console.WriteLine(user.Name);
-            Console.WriteLine(user._Name);
-
+        static void WriteHeader(string title)
+        {
             Console.WriteLine();
+            Console.WriteLine("#########################");
+            Console.WriteLine(title);
+            Console.WriteLine("#########################");
+        }
 
-            Console.WriteLine("Email:");
-            Console.WriteLine(user.Email);
-            Console.WriteLine(user._Email);
-
-            Console.WriteLine();
-
-            Console.WriteLine("Address:");
-            Console.WriteLine(user.Address);
-            Console.WriteLine(user._Address);
+        static void WriteResult(string original, string encrypted, string decrypted)
+        {
+            Console.WriteLine($"Original: '{original}'");
+            Console.WriteLine($"Encrypted: '{encrypted}'");
+            Console.WriteLine($"Decrypted: '{decrypted}'");
         }
     }
 }

@@ -59,15 +59,15 @@ namespace Tests.Anonimize
             anonimizeProperties.AddProperty(nameof(ClassWithProperties.Property1));
             Assert.True(anonimizeProperties.IsDecrypted(nameof(ClassWithProperties.Property1)));
             Assert.True(anonimizeProperties.IsEncrypted(nameof(ClassWithProperties._Property1)));
-            Assert.True(anonimizeProperties.DecryptedProperties.Contains(nameof(ClassWithProperties.Property1)));
-            Assert.True(anonimizeProperties.EncryptedProperties.Contains(nameof(ClassWithProperties._Property1)));
+            Assert.Contains(nameof(ClassWithProperties.Property1), anonimizeProperties.DecryptedProperties);
+            Assert.Contains(nameof(ClassWithProperties._Property1), anonimizeProperties.EncryptedProperties);
 
             // Add encrypted property
             anonimizeProperties.AddProperty(nameof(ClassWithProperties._Property2));
             Assert.True(anonimizeProperties.IsDecrypted(nameof(ClassWithProperties.Property2)));
             Assert.True(anonimizeProperties.IsEncrypted(nameof(ClassWithProperties._Property2)));
-            Assert.True(anonimizeProperties.DecryptedProperties.Contains(nameof(ClassWithProperties.Property2)));
-            Assert.True(anonimizeProperties.EncryptedProperties.Contains(nameof(ClassWithProperties._Property2)));
+            Assert.Contains(nameof(ClassWithProperties.Property2), anonimizeProperties.DecryptedProperties);
+            Assert.Contains(nameof(ClassWithProperties._Property2), anonimizeProperties.EncryptedProperties);
         }
     }
 }

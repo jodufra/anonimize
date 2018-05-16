@@ -9,25 +9,16 @@ namespace Example
     {
         static void Main()
         {
-            //CreateUsers();
+            CreateUsers();
             ReadUsers();
-            //UpdateUsers();
-            //DeleteUsers();
-
-            //var anonimize = AnonimizeProvider.GetInstance();
-            //var service = anonimize.GetCryptoService();
-
-            //var original = "Guinea Pig 1";
-            //var encrypted = service.Encrypt(original);
-            //var decrypted = service.Decrypt<string>(encrypted);
-
-            //Console.WriteLine(original);
-            //Console.WriteLine(encrypted);
-            //Console.WriteLine(decrypted);
+            UpdateUsers();
+            DeleteUsers();
         }
 
         static void CreateUsers()
         {
+            Console.WriteLine("Create Users");
+
             var session = NHibernateManager.OpenSession();
 
             var users = new List<User>();
@@ -37,7 +28,7 @@ namespace Example
                 var user = new User
                 {
                     Email = $"{id}@example.com",
-                    Name = $"Guinea Pig {id}"
+                    Name = $"User Name {id}"
                 };
 
                 users.Add(user);
@@ -48,25 +39,37 @@ namespace Example
                 users.ForEach(user => session.Save(user));
                 transaction.Commit();
             }
+
+            Console.ReadKey();
         }
 
         static void ReadUsers()
         {
+            Console.WriteLine("Read Users");
+
             var session = NHibernateManager.OpenSession();
-            var users = session.Query<User>().Where(u => u.Name == "Guinea Pig 5").ToList();
-            users.ForEach(u => Console.WriteLine($"{u.Id.ToString("000")} {u.Name} {u.Email}"));
+            var users = session.Query<User>().ToList();
+            users.ForEach(u => Console.WriteLine($"{u.Id.ToString("000")} - {u.Name} | {u.Email}"));
+
+            Console.ReadKey();
         }
 
         static void UpdateUsers()
         {
-            var session = NHibernateManager.OpenSession();
+            Console.WriteLine("Update Users");
 
+            var session = NHibernateManager.OpenSession();
+            
+            Console.ReadKey();
         }
 
         static void DeleteUsers()
         {
-            var session = NHibernateManager.OpenSession();
+            Console.WriteLine("Delete Users");
 
+            var session = NHibernateManager.OpenSession();
+            
+            Console.ReadKey();
         }
     }
 }

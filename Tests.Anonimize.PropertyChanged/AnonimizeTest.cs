@@ -14,20 +14,23 @@ namespace Tests.Anonimize
         [Fact]
         public void PropertyChangedService_ProvivesDefaultAndOverriddenService()
         {
+            var serviceTypeDefault = typeof(PropertyChangedService);
+            var serviceTypeOverriden = typeof(BasePropertyChangedService);
+
             var anonimize = AnonimizeProvider.GetInstance();
             var service = anonimize.GetPropertyChangedService();
             Assert.NotNull(service);
-            Assert.IsType(typeof(PropertyChangedService), service);
+            Assert.IsType(serviceTypeDefault, service);
 
             anonimize.SetPropertyChangedService(new BasePropertyChangedService());
             service = anonimize.GetPropertyChangedService();
             Assert.NotNull(service);
-            Assert.IsType(typeof(BasePropertyChangedService), service);
+            Assert.IsType(serviceTypeOverriden, service);
 
             anonimize.SetPropertyChangedService(null);
             service = anonimize.GetPropertyChangedService();
             Assert.NotNull(service);
-            Assert.IsType(typeof(PropertyChangedService), service);
+            Assert.IsType(serviceTypeDefault, service);
         }
 
         [Fact]
