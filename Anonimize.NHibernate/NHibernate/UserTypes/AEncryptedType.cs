@@ -3,11 +3,19 @@ using System;
 using NHibernate.Engine;
 using NHibernate.SqlTypes;
 using System.Data.Common;
+using Anonimize.Services;
 
 namespace Anonimize.NHibernate.UserTypes
 {
     public abstract class AEncryptedType : IUserType
     {
+        protected ICryptoService cryptoService;
+
+        protected AEncryptedType()
+        {
+            cryptoService = AnonimizeProvider.GetInstance().GetCryptoService();
+        }
+
         /// <summary>
         /// Are objects of this type mutable?
         /// </summary>

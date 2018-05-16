@@ -68,6 +68,7 @@
     <Compile Include="NHibernate\UserTypes\EncryptedFloatNullable.cs" />
     <Compile Include="NHibernate\UserTypes\EncryptedInt32.cs" />
     <Compile Include="NHibernate\UserTypes\EncryptedInt32Nullable.cs" />
+    <Compile Include="NHibernate\UserTypes\EncryptedComparableString.cs" />
     <Compile Include="NHibernate\UserTypes\EncryptedString.cs" />
     <Compile Include="NHibernate\UserTypes\EncryptedType.cs" />
     <Compile Include="NHibernate\UserTypes\AEncryptedType.cs" />

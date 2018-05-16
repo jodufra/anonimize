@@ -9,10 +9,10 @@ namespace Example
     {
         static void Main()
         {
-            CreateUsers();
+            //CreateUsers();
             ReadUsers();
-            UpdateUsers();
-            DeleteUsers();
+            //UpdateUsers();
+            //DeleteUsers();
         }
 
         static void CreateUsers()
@@ -30,7 +30,6 @@ namespace Example
                     Email = $"{id}@example.com",
                     Name = $"User Name {id}"
                 };
-
                 users.Add(user);
             }
 
@@ -40,6 +39,7 @@ namespace Example
                 transaction.Commit();
             }
 
+            Console.WriteLine("Continue?");
             Console.ReadKey();
         }
 
@@ -48,9 +48,18 @@ namespace Example
             Console.WriteLine("Read Users");
 
             var session = NHibernateManager.OpenSession();
-            var users = session.Query<User>().ToList();
+
+            Console.WriteLine("GetBy Unencrypted");
+            var users = session.Query<User>().Where(u => u.Email == "5@example.com").ToList();
+            Console.WriteLine($"Count {users.Count}");
             users.ForEach(u => Console.WriteLine($"{u.Id.ToString("000")} - {u.Name} | {u.Email}"));
 
+            Console.WriteLine("GetBy Encrypted");
+            users = session.Query<User>().Where(u => u.Email == "sRmLdtiG9tZ6QintJH18yXX9pi8CkX6fWJSvsQHJdmhdDx1rL1Cf6g==").ToList();
+            Console.WriteLine($"Count {users.Count}");
+            users.ForEach(u => Console.WriteLine($"{u.Id.ToString("000")} - {u.Name} | {u.Email}"));
+
+            Console.WriteLine("Continue?");
             Console.ReadKey();
         }
 
@@ -59,7 +68,8 @@ namespace Example
             Console.WriteLine("Update Users");
 
             var session = NHibernateManager.OpenSession();
-            
+
+            Console.WriteLine("Continue?");
             Console.ReadKey();
         }
 
@@ -68,7 +78,8 @@ namespace Example
             Console.WriteLine("Delete Users");
 
             var session = NHibernateManager.OpenSession();
-            
+
+            Console.WriteLine("Continue?");
             Console.ReadKey();
         }
     }
