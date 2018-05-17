@@ -1,11 +1,11 @@
-﻿using NHibernate.UserTypes;
+﻿using NHibernate;
 using System;
 using NHibernate.Engine;
 using NHibernate.SqlTypes;
 using System.Data.Common;
 using Anonimize.Services;
 
-namespace Anonimize.NHibernate.UserTypes
+namespace Anonimize.NHibernate
 {
     public abstract class AEncryptedType : IUserType
     {

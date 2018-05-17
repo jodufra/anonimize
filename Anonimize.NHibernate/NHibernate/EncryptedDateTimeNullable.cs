@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Anonimize.NHibernate.UserTypes
+namespace Anonimize.NHibernate
 {
     [Serializable]
     public class EncryptedDateTimeNullable : EncryptedType<DateTime?> { }

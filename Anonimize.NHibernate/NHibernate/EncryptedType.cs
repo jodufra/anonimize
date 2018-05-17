@@ -5,7 +5,7 @@ using System.Data.Common;
 using NHibernate;
 using System.Data;
 
-namespace Anonimize.NHibernate.UserTypes
+namespace Anonimize.NHibernate
 {
     [Serializable]
     public class EncryptedType<T> : AEncryptedType

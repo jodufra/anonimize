@@ -58,20 +58,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NHibernate\UserTypes\EncryptedDateTime.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedDateTimeNullable.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedDecimal.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedDecimalNullable.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedDouble.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedDoubleNullable.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedFloat.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedFloatNullable.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedInt32.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedInt32Nullable.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedComparableString.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedString.cs" />
-    <Compile Include="NHibernate\UserTypes\EncryptedType.cs" />
-    <Compile Include="NHibernate\UserTypes\AEncryptedType.cs" />
+    <Compile Include="NHibernate\EncryptedBooleanNullable.cs" />
+    <Compile Include="NHibernate\EncryptedBoolean.cs" />
+    <Compile Include="NHibernate\EncryptedDateTime.cs" />
+    <Compile Include="NHibernate\EncryptedDateTimeNullable.cs" />
+    <Compile Include="NHibernate\EncryptedDecimal.cs" />
+    <Compile Include="NHibernate\EncryptedDecimalNullable.cs" />
+    <Compile Include="NHibernate\EncryptedDouble.cs" />
+    <Compile Include="NHibernate\EncryptedDoubleNullable.cs" />
+    <Compile Include="NHibernate\EncryptedSingle.cs" />
+    <Compile Include="NHibernate\EncryptedSingleNullable.cs" />
+    <Compile Include="NHibernate\EncryptedInt32.cs" />
+    <Compile Include="NHibernate\EncryptedInt32Nullable.cs" />
+    <Compile Include="NHibernate\EncryptedStringAnalogous.cs" />
+    <Compile Include="NHibernate\EncryptedString.cs" />
+    <Compile Include="NHibernate\EncryptedType.cs" />
+    <Compile Include="NHibernate\AEncryptedType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
