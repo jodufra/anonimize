@@ -51,7 +51,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Anonimize\Anonimize.csproj">
+    <ProjectReference Include="..\..\src\Anonimize\Anonimize.csproj">
       <Project>{d5949f35-7c85-4eb7-a2d7-916acf02c1d5}</Project>
       <Name>Anonimize</Name>
     </ProjectReference>
