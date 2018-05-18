@@ -3,5 +3,5 @@
 namespace Anonimize.NHibernate
 {
     [Serializable]
-    public class EncryptedDecimalNullable : EncryptedType<Decimal?> { }
+    public class EncryptedDecimalNullable : AEncryptedType<Decimal?> { }
 }

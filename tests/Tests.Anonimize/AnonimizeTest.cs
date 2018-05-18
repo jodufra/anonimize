@@ -5,7 +5,7 @@ using Anonimize.Services;
 
 namespace Tests.Anonimize
 {
-    public class AnonimizeTest
+    public class AnonimizeTests
     {
         [Fact]
         public void CryptoService_ProvivesDefaultAndOverriddenService()

@@ -3,5 +3,5 @@
 namespace Anonimize.NHibernate
 {
     [Serializable]
-    public class EncryptedDateTimeNullable : EncryptedType<DateTime?> { }
+    public class EncryptedDateTimeNullable : AEncryptedType<DateTime?> { }
 }

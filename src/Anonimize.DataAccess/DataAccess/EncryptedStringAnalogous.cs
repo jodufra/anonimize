@@ -3,34 +3,29 @@ using Telerik.OpenAccess.Data;
 
 namespace Anonimize.DataAccess
 {
-    public class EncryptedInt32 : AEncryptedType
+    public class EncryptedStringAnalogous : AEncryptedType
     {
-        public override Type DefaultType => typeof(Int32);
+        public override Type DefaultType => typeof(String);
 
         public override object Read(ref DataHolder holder)
         {
             holder.NoValue = holder.Reader.IsDBNull(holder.Position);
 
-            if (holder.NoValue)
+            if(holder.NoValue)
             {
-                if (IsNullable)
-                    holder.ObjectValue = null;
-                else if (holder.Box)
-                    holder.ObjectValue = 0;
-                else
-                    holder.Int32Value = 0;
+                holder.StringValue = String.Empty;
             }
             else
             {
                 var encryptedValue = holder.Reader.GetValue(holder.Position).ToString();
-                var decryptedValue = cryptoService.Decrypt<Int32>(encryptedValue);
+                var decryptedValue = cryptoService.Decrypt<String>(encryptedValue);
 
-                if (IsNullable || holder.Box)
-                    holder.ObjectValue = decryptedValue;
-                else
-                    holder.Int32Value = decryptedValue;
+                if (decryptedValue == null)
+                    decryptedValue = encryptedValue;
+
+                holder.StringValue = decryptedValue;
             }
-
+            
             return holder.ObjectValue;
         }
 
@@ -44,8 +39,10 @@ namespace Anonimize.DataAccess
                 return;
             }
 
-            var decryptedValue = IsNullable && holder.ObjectValue == null ? (Int32?)null : holder.Int32Value;
-            var encryptedValue = cryptoService.Encrypt(decryptedValue);
+            var value = holder.StringValue;
+
+            var decryptedValue = cryptoService.Decrypt<string>(value);
+            var encryptedValue = decryptedValue == null ? cryptoService.Encrypt(decryptedValue) : value;
 
             holder.Parameter.Size = encryptedValue.Length;
             holder.Parameter.Value = encryptedValue;

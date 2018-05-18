@@ -3,9 +3,9 @@ using Telerik.OpenAccess.Data;
 
 namespace Anonimize.DataAccess
 {
-    public class EncryptedInt32 : AEncryptedType
+    public class EncryptedByte : AEncryptedType
     {
-        public override Type DefaultType => typeof(Int32);
+        public override Type DefaultType => typeof(Byte);
 
         public override object Read(ref DataHolder holder)
         {
@@ -23,7 +23,7 @@ namespace Anonimize.DataAccess
             else
             {
                 var encryptedValue = holder.Reader.GetValue(holder.Position).ToString();
-                var decryptedValue = cryptoService.Decrypt<Int32>(encryptedValue);
+                var decryptedValue = cryptoService.Decrypt<Byte>(encryptedValue);
 
                 if (IsNullable || holder.Box)
                     holder.ObjectValue = decryptedValue;
@@ -44,7 +44,7 @@ namespace Anonimize.DataAccess
                 return;
             }
 
-            var decryptedValue = IsNullable && holder.ObjectValue == null ? (Int32?)null : holder.Int32Value;
+            var decryptedValue = IsNullable && holder.ObjectValue == null ? (Byte?)null : (Byte)holder.Int32Value);
             var encryptedValue = cryptoService.Encrypt(decryptedValue);
 
             holder.Parameter.Size = encryptedValue.Length;

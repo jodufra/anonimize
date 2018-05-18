@@ -44,7 +44,8 @@ namespace Anonimize.DataAccess
                 return;
             }
 
-            var encryptedValue  = cryptoService.Encrypt(IsNullable && holder.ObjectValue == null ? (bool?)null : holder.BooleanValue);
+            var decryptedValue = IsNullable && holder.ObjectValue == null ? (Boolean?)null : holder.BooleanValue;
+            var encryptedValue = cryptoService.Encrypt(decryptedValue);
 
             holder.Parameter.Size = encryptedValue.Length;
             holder.Parameter.Value = encryptedValue;

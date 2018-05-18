@@ -6,7 +6,7 @@ using NHibernate;
 namespace Anonimize.NHibernate
 {
     [Serializable]
-    public class EncryptedStringAnalogous : EncryptedType<string>
+    public class EncryptedStringAnalogous : AEncryptedType<string>
     {
         public override object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
         {
@@ -16,7 +16,8 @@ namespace Anonimize.NHibernate
             var encryptedValue = (string)NHibernateUtil.String.NullSafeGet(rs, names[0], session);
 
             var decryptedValue = cryptoService.Decrypt<string>(encryptedValue);
-            if (string.IsNullOrEmpty(decryptedValue))
+
+            if (decryptedValue == null)
                 decryptedValue = encryptedValue;
 
             return decryptedValue;
@@ -27,17 +28,9 @@ namespace Anonimize.NHibernate
             var parameter = cmd.Parameters[index];
 
             var decryptedValue = cryptoService.Decrypt<string>((string)value);
-            if (string.IsNullOrEmpty(decryptedValue))
-            {
-                // the decrypt function failed or the original value is empty 
-                // the value is not encrypted
-                parameter.Value = cryptoService.Encrypt((string)value);
-            }
-            else
-            {
-                // the value is already encrypted
-                parameter.Value = value;
-            }
+            var encryptedValue = decryptedValue == null ? cryptoService.Encrypt((string)value) : value;
+
+            parameter.Value = encryptedValue;
         }
     }
 }

@@ -121,7 +121,7 @@ namespace Anonimize.Services
         public string Encrypt<T>(T input)
         {
             if (EqualityComparer<T>.Default.Equals(input, default(T)))
-                return string.Empty;
+                return default(string);
 
             byte[] inputBuffer;
 
@@ -131,7 +131,7 @@ namespace Anonimize.Services
             }
             catch (Exception)
             {
-                return string.Empty;
+                return default(string);
             }
 
             var outputBuffer = Encrypt(inputBuffer);
@@ -142,7 +142,7 @@ namespace Anonimize.Services
             }
             catch (Exception)
             {
-                return string.Empty;
+                return default(string);
             }
         }
 

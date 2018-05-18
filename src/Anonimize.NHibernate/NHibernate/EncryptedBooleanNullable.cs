@@ -3,5 +3,5 @@
 namespace Anonimize.NHibernate
 {
     [Serializable]
-    public class EncryptedBooleanNullable : EncryptedType<Boolean?> { }
+    public class EncryptedBooleanNullable : AEncryptedType<Boolean?> { }
 }

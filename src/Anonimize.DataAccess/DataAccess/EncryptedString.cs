@@ -5,7 +5,7 @@ namespace Anonimize.DataAccess
 {
     public class EncryptedString : AEncryptedType
     {
-        public override Type DefaultType => typeof(string);
+        public override Type DefaultType => typeof(String);
 
         public override object Read(ref DataHolder holder)
         {
@@ -13,12 +13,12 @@ namespace Anonimize.DataAccess
 
             if(holder.NoValue)
             {
-                holder.StringValue = string.Empty;
+                holder.StringValue = String.Empty;
             }
             else
             {
                 var encryptedValue = holder.Reader.GetValue(holder.Position).ToString();
-                var decryptedValue = cryptoService.Decrypt<string>(encryptedValue);
+                var decryptedValue = cryptoService.Decrypt<String>(encryptedValue);
                 
                 holder.StringValue = decryptedValue;
             }
