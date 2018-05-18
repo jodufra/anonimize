@@ -8,7 +8,7 @@ namespace Anonimize.NHibernate
     [Serializable]
     public class EncryptedStringAnalogous : AEncryptedType<string>
     {
-        public override object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
+        public new object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
         {
             if (names.Length == 0)
                 throw new ArgumentException("Expecting at least one column");
@@ -23,7 +23,7 @@ namespace Anonimize.NHibernate
             return decryptedValue;
         }
 
-        public override void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
+        public new void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
         {
             var parameter = cmd.Parameters[index];
 
