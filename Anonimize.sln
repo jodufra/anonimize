@@ -3,6 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E99C0976-E165-4D4A-8BC9-BC0BAE1A5A86}"
+	ProjectSection(SolutionItems) = preProject
+		build\Anonimize.props = build\Anonimize.props
+		build\MonoSdk.props = build\MonoSdk.props
+		releasenotes.txt = releasenotes.txt
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anonimize", "src\Anonimize\Anonimize.csproj", "{D5949F35-7C85-4EB7-A2D7-916ACF02C1D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anonimize.DataAccess", "src\Anonimize.DataAccess\Anonimize.DataAccess.csproj", "{0A282FA4-C26F-45CC-945A-C2D369387D0B}"

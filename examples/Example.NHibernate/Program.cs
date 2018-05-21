@@ -19,7 +19,7 @@ namespace Example
         {
             Console.WriteLine("Create Users");
 
-            var session = NHibernateManager.OpenSession();
+            var session = SessionManager.OpenSession();
 
             var users = new List<User>();
             for (int i = 0; i < 10; i++)
@@ -47,7 +47,7 @@ namespace Example
         {
             Console.WriteLine("Read Users");
 
-            var session = NHibernateManager.OpenSession();
+            var session = SessionManager.OpenSession();
 
             Console.WriteLine("Email == 5@example.com");
             var users = session.Query<User>().Where(u => u.Email == "5@example.com").ToList();
@@ -67,7 +67,7 @@ namespace Example
         {
             Console.WriteLine("Update Users");
 
-            var session = NHibernateManager.OpenSession();
+            var session = SessionManager.OpenSession();
 
             Console.WriteLine("Continue?");
             Console.ReadKey();
@@ -77,7 +77,7 @@ namespace Example
         {
             Console.WriteLine("Delete Users");
 
-            var session = NHibernateManager.OpenSession();
+            var session = SessionManager.OpenSession();
 
             Console.WriteLine("Continue?");
             Console.ReadKey();

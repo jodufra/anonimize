@@ -1,0 +1,6 @@
+﻿        private $type $fieldName;
+        public $type $propName
+        {
+            get { return this.$fieldName; }
+            set { this.$fieldName = value; }
+        }

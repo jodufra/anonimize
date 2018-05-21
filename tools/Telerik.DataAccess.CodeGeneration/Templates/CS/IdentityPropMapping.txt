@@ -1,0 +1,5 @@
+            configuration.HasProperty(x => x.$propName)
+                .IsIdentity($keyGen)
+                .HasFieldName("$fieldName")
+                .ToColumn("$columnName")
+                .IsNotNullable()$config;

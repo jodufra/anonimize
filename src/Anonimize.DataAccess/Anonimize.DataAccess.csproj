@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="../../build/Anonimize.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -53,21 +54,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\AEncryptedType.cs" />
-    <Compile Include="DataAccess\EncryptedSingleNullable.cs" />
-    <Compile Include="DataAccess\EncryptedSingle.cs" />
-    <Compile Include="DataAccess\EncryptedDoubleNullable.cs" />
-    <Compile Include="DataAccess\EncryptedDouble.cs" />
-    <Compile Include="DataAccess\EncryptedDecimalNullable.cs" />
-    <Compile Include="DataAccess\EncryptedDecimal.cs" />
-    <Compile Include="DataAccess\EncryptedDateTimeNullable.cs" />
-    <Compile Include="DataAccess\EncryptedByteNullable.cs" />
-    <Compile Include="DataAccess\EncryptedByte.cs" />
     <Compile Include="DataAccess\EncryptedBoolean.cs" />
     <Compile Include="DataAccess\EncryptedBooleanNullable.cs" />
+    <Compile Include="DataAccess\EncryptedByte.cs" />
+    <Compile Include="DataAccess\EncryptedByteNullable.cs" />
     <Compile Include="DataAccess\EncryptedDateTime.cs" />
-    <Compile Include="DataAccess\EncryptedInt32Nullable.cs" />
+    <Compile Include="DataAccess\EncryptedDateTimeNullable.cs" />
+    <Compile Include="DataAccess\EncryptedDecimal.cs" />
+    <Compile Include="DataAccess\EncryptedDecimalNullable.cs" />
+    <Compile Include="DataAccess\EncryptedDouble.cs" />
+    <Compile Include="DataAccess\EncryptedDoubleNullable.cs" />
     <Compile Include="DataAccess\EncryptedInt32.cs" />
-    <Compile Include="DataAccess\EncryptedStringAnalogous.cs" />
+    <Compile Include="DataAccess\EncryptedInt32Nullable.cs" />
+    <Compile Include="DataAccess\EncryptedSingle.cs" />
+    <Compile Include="DataAccess\EncryptedSingleNullable.cs" />
     <Compile Include="DataAccess\EncryptedString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

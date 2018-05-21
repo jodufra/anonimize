@@ -8,9 +8,8 @@ using NHibernate.Mapping.ByCode.Conformist;
 
 namespace Example
 {
-    public static class NHibernateManager
+    public static class SessionManager
     {
-        const string SessionKey = "_SessionDatabaseKey";
         static ISession _Session;
         static ISessionFactory _SessionFactory;
 
@@ -41,7 +40,6 @@ namespace Example
 
         static Configuration Setup()
         {
-            //var serializer = new NHibernate.Mapping.Attributes.HbmSerializer { Validate = true };
             var cfg = new Configuration().DataBaseIntegration(db =>
             {
                 db.ConnectionStringName = "Connection";

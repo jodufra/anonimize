@@ -1,0 +1,16 @@
+        public MappingConfiguration<$type> $methodName()
+        {
+            var configuration = new MappingConfiguration<$type>();
+
+            configuration.MapType()
+                         .WithConcurencyControl(OptimisticConcurrencyControlStrategy.$concurrency)
+                         .ToTable("$tableName");
+
+$identityProps
+            
+$primitiveProps
+            
+$associations
+
+            return configuration;
+        }

@@ -1,0 +1,2 @@
+            configuration.HasAssociation(x => x.$ownPropName)
+                .HasFieldName("$fieldName")$config;

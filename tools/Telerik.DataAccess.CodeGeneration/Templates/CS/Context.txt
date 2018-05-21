@@ -1,0 +1,57 @@
+﻿using System;
+using System.Linq;
+using Telerik.OpenAccess;
+using Telerik.OpenAccess.Metadata;
+
+namespace $namespace
+{
+    public partial class $contextName : OpenAccessContext
+    {
+        private static string connectionStringName = @"$csName";
+            
+        private static BackendConfiguration backend = GetBackendConfiguration();
+                
+        private static MetadataContainer metadataContainer = new $metadataSource().GetModel();
+        
+        public $contextName()
+            : base(connectionStringName, backend, metadataContainer)
+        { }
+        
+        public $contextName(string connection)
+            : base(connection, backend, metadataContainer)
+        { }
+        
+        public $contextName(BackendConfiguration backendConfiguration)
+            : base(connectionStringName, backendConfiguration, metadataContainer)
+        { }
+            
+        public $contextName(string connection, MetadataContainer metadataContainer)
+            : base(connection, backend, metadataContainer)
+        { }
+        
+        public $contextName(string connection, BackendConfiguration backendConfiguration, MetadataContainer metadataContainer)
+            : base(connection, backendConfiguration, metadataContainer)
+        { }
+        
+        public static BackendConfiguration GetBackendConfiguration()
+        {
+            BackendConfiguration backend = new BackendConfiguration();
+            backend.Backend = "$backend";
+            backend.ProviderName = "$Global:providerName";
+
+            backend.Logging.LogEvents = LoggingLevel.All;
+        
+            CustomizeBackendConfiguration(ref backend);
+        
+            return backend;
+        }
+        
+        /// <summary>
+        /// Allows you to customize the BackendConfiguration of FluentModel.
+        /// </summary>
+        /// <param name="config">The BackendConfiguration of FluentModel.</param>
+        static partial void CustomizeBackendConfiguration(ref BackendConfiguration config);
+
+$iQueryableEndpoints
+    }
+}

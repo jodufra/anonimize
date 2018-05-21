@@ -2,8 +2,7 @@
 
 namespace Anonimize.DataAccess
 {
-    public class EncryptedSingleNullable : EncryptedSingle
+    public class EncryptedSingleNullable : AEncryptedType<Single?>
     {
-        public override Type DefaultType => typeof(Single?);
     }
 }

@@ -17,5 +17,12 @@ namespace Anonimize.PropertyChanged
         {
             AnonimizeProvider.GetInstance().GetPropertyChangedService().Register(type, properties);
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnonimizePropertiesAttribute"/> class.
+        /// </summary>
+        public AnonimizePropertiesAttribute()
+        {
+        }
     }
 }

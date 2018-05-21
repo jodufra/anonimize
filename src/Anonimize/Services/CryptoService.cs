@@ -66,24 +66,10 @@ namespace Anonimize.Services
         /// <returns>The decrypted input</returns>
         public T Decrypt<T>(string input)
         {
-            if (string.IsNullOrWhiteSpace(input))
-                return default(T);
-            
-            byte[] inputBuffer;
-
             try
             {
-                inputBuffer = Convert.FromBase64String(input);
-            }
-            catch (Exception)
-            {
-                return default(T);
-            }
-
-            var outputBuffer = Decrypt(inputBuffer);
-
-            try
-            {
+                var inputBuffer = Convert.FromBase64String(input);
+                var outputBuffer = Decrypt(inputBuffer);
                 return Deserialize<T>(outputBuffer);
             }
             catch (Exception)
@@ -120,24 +106,10 @@ namespace Anonimize.Services
         /// <returns>The encrypted input</returns>
         public string Encrypt<T>(T input)
         {
-            if (EqualityComparer<T>.Default.Equals(input, default(T)))
-                return default(string);
-
-            byte[] inputBuffer;
-
             try
             {
-                inputBuffer = Serialize(input);
-            }
-            catch (Exception)
-            {
-                return default(string);
-            }
-
-            var outputBuffer = Encrypt(inputBuffer);
-
-            try
-            {
+                var inputBuffer = Serialize(input);
+                var outputBuffer = Encrypt(inputBuffer);
                 return Convert.ToBase64String(outputBuffer);
             }
             catch (Exception)

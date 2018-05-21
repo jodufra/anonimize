@@ -2,8 +2,7 @@
 
 namespace Anonimize.DataAccess
 {
-    public class EncryptedBooleanNullable : EncryptedBoolean
+    public class EncryptedBooleanNullable : AEncryptedType<Boolean?>
     {
-        public override Type DefaultType => typeof(Boolean?);
     }
 }

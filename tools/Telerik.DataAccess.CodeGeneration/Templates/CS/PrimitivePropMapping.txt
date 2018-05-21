@@ -1,0 +1,4 @@
+            configuration.HasProperty(x => x.$propName)
+                .HasFieldName("$fieldName")
+                .ToColumn("$columnName")
+                .Is$nullable()$config;

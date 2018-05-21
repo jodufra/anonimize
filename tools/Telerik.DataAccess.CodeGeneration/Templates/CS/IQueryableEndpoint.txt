@@ -1,0 +1,4 @@
+﻿        public IQueryable<$entityType> $entityTypePlural 
+        { 
+            get { return this.GetAll<$entityType>(); }
+        }

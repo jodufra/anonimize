@@ -2,8 +2,7 @@
 
 namespace Anonimize.DataAccess
 {
-    public class EncryptedByteNullable : EncryptedByte
+    public class EncryptedByteNullable : AEncryptedType<Byte?>
     {
-        public override Type DefaultType => typeof(Byte?);
     }
 }

@@ -2,8 +2,7 @@
 
 namespace Anonimize.DataAccess
 {
-    public class EncryptedDecimalNullable : EncryptedDecimal
+    public class EncryptedDecimalNullable : AEncryptedType<Decimal?>
     {
-        public override Type DefaultType => typeof(Decimal?);
     }
 }

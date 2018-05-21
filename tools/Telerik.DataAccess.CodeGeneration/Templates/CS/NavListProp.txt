@@ -1,0 +1,5 @@
+﻿        private IList<$type> $fieldName = new List<$type>();
+        public IList<$type> $propName
+        {
+            get { return this.$fieldName; }
+        }

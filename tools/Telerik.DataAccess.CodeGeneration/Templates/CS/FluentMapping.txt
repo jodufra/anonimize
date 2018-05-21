@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using Telerik.OpenAccess;
+using Telerik.OpenAccess.Metadata;
+using Telerik.OpenAccess.Metadata.Fluent;
+using Telerik.OpenAccess.Metadata.Fluent.Advanced;
+
+namespace $namespace
+{
+    public partial class $name : FluentMetadataSource
+    {
+        protected override IList<MappingConfiguration> PrepareMapping()
+        {
+            List<MappingConfiguration> mappingConfigurations = new List<MappingConfiguration>()
+            {
+$getConfigurationCalls
+            };
+            return mappingConfigurations;
+        }
+
+        protected override void SetContainerSettings(MetadataContainer container)
+        {
+            container.Name = "$contextName";
+            container.DefaultNamespace = "$namespace";
+            container.NameGenerator.SourceStrategy = NamingSourceStrategy.Property;
+            container.NameGenerator.RemoveCamelCase = false;
+        }
+
+$mappings
+    }
+}

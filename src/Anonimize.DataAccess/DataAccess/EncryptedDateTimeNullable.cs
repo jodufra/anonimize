@@ -2,8 +2,7 @@
 
 namespace Anonimize.DataAccess
 {
-    public class EncryptedDateTimeNullable : EncryptedDateTime
+    public class EncryptedDateTimeNullable : AEncryptedType<DateTime?>
     {
-        public override Type DefaultType => typeof(DateTime?);
     }
 }

@@ -1,0 +1,29 @@
+<Project>
+  <Import Project="MonoSdk.props" />
+  <PropertyGroup>
+    <VersionMajor Condition="'$(VersionMajor)' == ''">0</VersionMajor>
+    <VersionMinor Condition="'$(VersionMinor)' == ''">1</VersionMinor>
+    <VersionPatch Condition="'$(VersionPatch)' == ''">0</VersionPatch>
+    <VersionSuffix Condition="'$(VersionSuffix)' == ''"></VersionSuffix>
+
+    <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
+    <AssemblyVersion>$(VersionMajor).$(VersionMinor).0.0</AssemblyVersion>
+    <FileVersion>$(VersionPrefix).0</FileVersion>
+
+    <Product>Anonimize</Product>
+    <Company>Joel Francisco</Company>
+    <Copyright>Licensed under LGPL-2.1</Copyright>
+    <Authors>Joel Francisco</Authors>
+    <NeutralLanguage>en-US</NeutralLanguage>
+
+    <PackageProjectUrl>https://github.com/jodufra/anonimize</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/jodufra/anonimize/master/logo/Anonimize-NuGet.png</PackageIconUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/jodufra/anonimize/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageReleaseNotes>https://github.com/jodufra/anonimize/blob/$(VersionPrefix)/releasenotes.txt</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/jodufra/anonimize.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    
+    <DisableImplicitPackageTargetFallback>True</DisableImplicitPackageTargetFallback>
+  </PropertyGroup>
+</Project>
