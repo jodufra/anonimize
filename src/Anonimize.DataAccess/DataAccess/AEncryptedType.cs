@@ -67,7 +67,7 @@ namespace Anonimize.DataAccess
 
             var decryptedValue = cryptoService.Decrypt<T>(encryptedValue.ToString());
 
-            if (decryptedValue is string && decryptedValue == null)
+            if (DefaultType == typeof(string) && decryptedValue == null)
             {
                 return encryptedValue;
             }
