@@ -1,0 +1,16 @@
+Anonimize.DataAccess.AEncryptedType`1, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedBoolean, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedBooleanNullable, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedByte, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedByteNullable, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedDateTime, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedDateTimeNullable, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedDecimal, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedDecimalNullable, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedDouble, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedDoubleNullable, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedInt32, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedInt32Nullable, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedSingle, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedSingleNullable, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Anonimize.DataAccess.EncryptedString, Anonimize.DataAccess, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
