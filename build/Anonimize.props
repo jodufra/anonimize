@@ -17,7 +17,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
 
     <PackageProjectUrl>https://github.com/jodufra/anonimize</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/jodufra/anonimize/master/logo/Anonimize-NuGet.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/jodufra/anonimize/master/logo.png</PackageIconUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://raw.githubusercontent.com/jodufra/anonimize/master/LICENSE.txt</PackageLicenseUrl>
     <PackageReleaseNotes>https://github.com/jodufra/anonimize/blob/$(VersionPrefix)/releasenotes.txt</PackageReleaseNotes>

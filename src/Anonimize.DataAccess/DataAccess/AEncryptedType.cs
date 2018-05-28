@@ -11,6 +11,8 @@ namespace Anonimize.DataAccess
 
         bool? isNullable;
 
+        bool? isTypeString;
+
         protected AEncryptedType()
         {
             cryptoService = AnonimizeProvider.GetInstance().GetCryptoService();
@@ -28,7 +30,15 @@ namespace Anonimize.DataAccess
             }
         }
 
-        public bool IsString => DefaultType == typeof(string);
+        public bool IsTypeString
+        {
+            get
+            {
+                if (!isTypeString.HasValue)
+                    isTypeString = DefaultType == typeof(string);
+                return isTypeString.Value;
+            }
+        }
 
         public override bool CreateLiteralSql(ref DataHolder holder)
         {
@@ -63,11 +73,14 @@ namespace Anonimize.DataAccess
             var encryptedValue = holder.Reader.GetValue(holder.Position);
 
             if (holder.Reader.GetType().FullName == "Telerik.OpenAccess.RT.Adonet2Generic.Impl.BufferingReader")
+            {
+                // all values that comes from this reader are already decrypted
                 return encryptedValue;
+            }
 
             var decryptedValue = cryptoService.Decrypt<T>(encryptedValue.ToString());
 
-            if (DefaultType == typeof(string) && decryptedValue == null)
+            if (IsTypeString && (string)(object)decryptedValue == null)
             {
                 return encryptedValue;
             }
@@ -88,10 +101,9 @@ namespace Anonimize.DataAccess
             var decryptedValue = GetHolderValue(ref holder);
             string encryptedValue;
 
-            if (IsString)
+            if (IsTypeString)
             {
-                var previousEncryptedValue = cryptoService.Decrypt<T>(decryptedValue as string);
-                encryptedValue = EqualityComparer<T>.Default.Equals(previousEncryptedValue, default(T)) ? cryptoService.Encrypt(decryptedValue) : previousEncryptedValue as string;
+                encryptedValue = (string)(object)cryptoService.Decrypt<T>(decryptedValue as string) ?? cryptoService.Encrypt(decryptedValue);
             }
             else
             {

@@ -2,22 +2,65 @@
 using System.Collections.Generic;
 using System.Linq;
 using ApplicationLib.Entities;
+using Newtonsoft.Json;
 
 namespace Example
 {
     class Program
     {
+        delegate void CrudTask();
+
         static void Main()
         {
-            CreateUsers();
-            ReadUsers();
-            //UpdateUsers();
-            //DeleteUsers();
+            Console.WriteLine("##########################");
+            Console.WriteLine("Example DataAccess");
+            Console.WriteLine("##########################");
+            Console.WriteLine();
+
+            while (ChooseTask(out CrudTask task))
+            {
+                task();
+                Console.WriteLine("Done!");
+                Console.WriteLine();
+            }
         }
 
-        static void CreateUsers()
+        static bool ChooseTask(out CrudTask task)
         {
-            Console.WriteLine("Create Users");
+            var tasks = new List<CrudTask> { Create, Read, Update, Delete };
+
+            var taskNames = tasks.Select(t => t.Method.Name.Insert(0, "(").Insert(2, ")"));
+
+            Console.Write($"Choose task: '{string.Join("', '", taskNames)}'. ");
+
+            var key = Console.ReadKey().Key;
+            switch (key)
+            {
+                case ConsoleKey.C:
+                    task = Create;
+                    break;
+                case ConsoleKey.R:
+                    task = Read;
+                    break;
+                case ConsoleKey.U:
+                    task = Update;
+                    break;
+                case ConsoleKey.D:
+                    task = Delete;
+                    break;
+                default:
+                    task = null;
+                    break;
+            }
+
+            Console.WriteLine();
+
+            return task != null;
+        }
+
+        static void Create()
+        {
+            Console.WriteLine("Creating");
 
             var session = SessionManager.OpenSession();
 
@@ -25,9 +68,7 @@ namespace Example
 
             if (hasUsers)
             {
-                Console.WriteLine("Table contains users!");
-                Console.WriteLine("Continue?");
-                Console.ReadKey();
+                Console.WriteLine("Users table is not empty!");
                 return;
             }
 
@@ -37,94 +78,92 @@ namespace Example
                 var id = i + 1;
                 var user = new User
                 {
-                    AccountBalance = i * 12.345m,
-                    AccountDebt = i * 1.234m,
-                    Address = "Street nº" + i,
-                    CivilId = i * 111111,
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
-                    Email = $"{id}@example.com",
-                    FiscalId = i * 222222,
-                    IsActive = true,
-                    IsFemale = i % 2 == 0,
-                    Name = $"User {id}"
+                    DateCreated = DateTime.Now
                 };
+                User.PopulateAllProperties(id, user);
                 users.Add(user);
 
                 id++;
                 user = new User
                 {
-                    AccountBalance = i * 12.345m,
-                    AccountDebt = null,
-                    Address = null,
-                    CivilId = i * 333333,
-                    DateCreated = DateTime.Now,
-                    DateUpdated = null,
-                    Email = $"{id}@example.com",
-                    FiscalId = null,
-                    IsActive = false,
-                    IsFemale = null,
-                    Name = $"User {id}"
+                    DateCreated = DateTime.Now
                 };
+                User.PopulateRequiredProperties(id, user);
                 users.Add(user);
             }
 
             users.ForEach(session.Add);
             session.SaveChanges();
-
-            Console.WriteLine("Continue?");
-            Console.ReadKey();
         }
 
-        static void ReadUsers()
+        static void Read()
         {
-            Console.WriteLine("Read Users");
+            Console.WriteLine("Reading");
 
             var session = SessionManager.OpenSession();
 
+            var hasUsers = session.Users.Any();
+
+            if (!hasUsers)
+            {
+                Console.WriteLine("No users found!");
+                return;
+            }
+
             var users = session.Users.ToList();
-            Console.WriteLine($"Count {users.Count}");
+
+            Console.WriteLine($"Total: {users.Count} users");
             Console.WriteLine();
+
+            var json = JsonConvert.SerializeObject(users, Formatting.Indented);
+            Console.WriteLine(json);
+        }
+
+        static void Update()
+        {
+            Console.WriteLine("Updating");
+
+            var session = SessionManager.OpenSession();
+
+            var hasUsers = session.Users.Any();
+
+            if (!hasUsers)
+            {
+                Console.WriteLine("No users found!");
+                return;
+            }
+
+            var users = session.Users.ToList();
+            var seed = users.Max(u => u.Id) + 1;
 
             foreach (var user in users)
             {
-                Console.WriteLine("#" + user.Id);
-                Console.WriteLine(user.AccountBalance);
-                Console.WriteLine(user.AccountDebt);
-                Console.WriteLine(user.Address);
-                Console.WriteLine(user.CivilId);
-                Console.WriteLine(user.DateCreated);
-                Console.WriteLine(user.DateUpdated);
-                Console.WriteLine(user.Email);
-                Console.WriteLine(user.FiscalId);
-                Console.WriteLine(user.IsActive);
-                Console.WriteLine(user.IsFemale);
-                Console.WriteLine(user.Name);
-                Console.WriteLine();
+                user.DateUpdated = DateTime.Now;
+                User.PopulateAllProperties(seed, user);
+                seed++;
             }
 
-            Console.WriteLine("Continue?");
-            Console.ReadKey();
+            session.SaveChanges();
         }
 
-        static void UpdateUsers()
+        static void Delete()
         {
-            Console.WriteLine("Update Users");
+            Console.WriteLine("Deleting");
 
             var session = SessionManager.OpenSession();
 
-            Console.WriteLine("Continue?");
-            Console.ReadKey();
-        }
+            var hasUsers = session.Users.Any();
 
-        static void DeleteUsers()
-        {
-            Console.WriteLine("Delete Users");
+            if (!hasUsers)
+            {
+                Console.WriteLine("No users found!");
+                return;
+            }
 
-            var session = SessionManager.OpenSession();
+            var users = session.Users.ToList();
 
-            Console.WriteLine("Continue?");
-            Console.ReadKey();
+            session.Delete(users);
+            session.SaveChanges();
         }
     }
 }
