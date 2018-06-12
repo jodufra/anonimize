@@ -1,5 +1,6 @@
 <Project>
-  <Import Project="MonoSdk.props" />
+  <Import Project="BuildMonoFramework.props" />
+  <Import Project="BuildNetFramework.props" />
   <PropertyGroup>
     <VersionMajor Condition="'$(VersionMajor)' == ''">0</VersionMajor>
     <VersionMinor Condition="'$(VersionMinor)' == ''">1</VersionMinor>
@@ -14,7 +15,7 @@
     <Company>Joel Francisco</Company>
     <Copyright>Licensed under LGPL-2.1</Copyright>
     <Authors>Joel Francisco</Authors>
-    <NeutralLanguage>en-US</NeutralLanguage>
+    <NeutralLanguage>en-UK</NeutralLanguage>
 
     <PackageProjectUrl>https://github.com/jodufra/anonimize</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/jodufra/anonimize/master/logo.png</PackageIconUrl>
