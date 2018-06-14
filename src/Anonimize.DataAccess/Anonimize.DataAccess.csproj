@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="../../build/Anonimize.props" />
+
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,6 +14,14 @@
     <AssemblyName>Anonimize.DataAccess</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Description>A type converter library for Telerik DataAccess ORM.</Description>
+    <PackageDescription>A type converter library for Telerik DataAccess ORM.</PackageDescription>
+    <PackageTags>Anonimize; Telerik; DataAccess; OpenAccess; Converter;</PackageTags>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -34,6 +44,7 @@
       <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.2.822.1\lib\net40\Telerik.OpenAccess.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
+
   <ItemGroup>
     <Compile Include="DataAccess\AEncryptedType.cs" />
     <Compile Include="DataAccess\EncryptedBoolean.cs" />
@@ -53,14 +64,17 @@
     <Compile Include="DataAccess\EncryptedString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Anonimize\Anonimize.csproj">
       <Project>{d5949f35-7c85-4eb7-a2d7-916acf02c1d5}</Project>
       <Name>Anonimize</Name>
     </ProjectReference>
   </ItemGroup>
+
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

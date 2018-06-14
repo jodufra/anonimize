@@ -13,12 +13,15 @@ namespace Anonimize.DataAccess
 
         bool? isTypeString;
 
+        Type defaultType;
+
         protected AEncryptedType()
         {
+            defaultType = typeof(T);
             cryptoService = AnonimizeProvider.GetInstance().GetCryptoService();
         }
 
-        public override Type DefaultType => typeof(T);
+        public override Type DefaultType => defaultType;
 
         public bool IsNullable
         {
@@ -72,9 +75,9 @@ namespace Anonimize.DataAccess
 
             var encryptedValue = holder.Reader.GetValue(holder.Position);
 
-            if (holder.Reader.GetType().FullName == "Telerik.OpenAccess.RT.Adonet2Generic.Impl.BufferingReader")
+            if (holder.Reader.GetType().FullName.StartsWith("Telerik"))
             {
-                // all values that comes from this reader are already decrypted
+                // values from Telerik DbDataReader are already decrypted
                 return encryptedValue;
             }
 

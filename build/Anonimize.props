@@ -1,13 +1,14 @@
-<Project>
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> 
   <Import Project="BuildMonoFramework.props" />
   <Import Project="BuildNetFramework.props" />
   <PropertyGroup>
-    <VersionMajor Condition="'$(VersionMajor)' == ''">0</VersionMajor>
-    <VersionMinor Condition="'$(VersionMinor)' == ''">1</VersionMinor>
-    <VersionPatch Condition="'$(VersionPatch)' == ''">0</VersionPatch>
-    <VersionSuffix Condition="'$(VersionSuffix)' == ''"></VersionSuffix>
-
+    <VersionMajor>0</VersionMajor>
+    <VersionMinor>1</VersionMinor>
+    <VersionPatch>1</VersionPatch>
+    <VersionSuffix></VersionSuffix>
     <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
+    
     <AssemblyVersion>$(VersionMajor).$(VersionMinor).0.0</AssemblyVersion>
     <FileVersion>$(VersionPrefix).0</FileVersion>
 
