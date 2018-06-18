@@ -27,7 +27,7 @@ namespace Example
 
         static bool ChooseTask(out CrudTask task)
         {
-            var tasks = new List<CrudTask> { Create, Read, Update, Delete };
+            var tasks = new List<CrudTask> { Create, Read, Query, Update, Delete };
 
             var taskNames = tasks.Select(t => t.Method.Name.Insert(0, "(").Insert(2, ")"));
 
@@ -41,6 +41,9 @@ namespace Example
                     break;
                 case ConsoleKey.R:
                     task = Read;
+                    break;
+                case ConsoleKey.Q:
+                    task = Query;
                     break;
                 case ConsoleKey.U:
                     task = Update;
@@ -116,6 +119,27 @@ namespace Example
             Console.WriteLine();
 
             var json = JsonConvert.SerializeObject(users, Formatting.Indented);
+            Console.WriteLine(json);
+        }
+
+        static void Query()
+        {
+            Console.WriteLine("Querying");
+
+            var session = SessionManager.OpenSession();
+
+            var hasUsers = session.Users.Any();
+
+            if (!hasUsers)
+            {
+                Console.WriteLine("No users found!");
+                return;
+            }
+
+            var email = "8@example.com";
+            var user = (from q in session.Users where q.Email == email select q).FirstOrDefault();
+
+            var json = JsonConvert.SerializeObject(user, Formatting.Indented);
             Console.WriteLine(json);
         }
 

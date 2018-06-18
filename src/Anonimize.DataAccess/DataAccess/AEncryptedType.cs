@@ -106,7 +106,14 @@ namespace Anonimize.DataAccess
 
             if (IsTypeString)
             {
-                encryptedValue = (string)(object)cryptoService.Decrypt<T>(decryptedValue as string) ?? cryptoService.Encrypt(decryptedValue);
+                if(IsStringEncrypted(decryptedValue))
+                {
+                    encryptedValue = (string)(object)decryptedValue;
+                }
+                else
+                {
+                    encryptedValue = cryptoService.Encrypt(decryptedValue);
+                }
             }
             else
             {
@@ -124,6 +131,11 @@ namespace Anonimize.DataAccess
         protected virtual T GetHolderValue(ref DataHolder holder)
         {
             return IsNullable && holder.ObjectValue == null ? default(T) : (T)holder.ObjectValue;
+        }
+
+        protected virtual bool IsStringEncrypted(T input)
+        {
+            return cryptoService.Decrypt<T>(input as string) != null;
         }
     }
 }
