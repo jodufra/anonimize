@@ -16,7 +16,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>A crypto service provider library.</Description>
     <PackageDescription>A crypto service provider library.</PackageDescription>
     <PackageTags>Anonimize;</PackageTags>

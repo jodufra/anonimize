@@ -8,7 +8,8 @@
     <VersionPatch>1</VersionPatch>
     <VersionSuffix></VersionSuffix>
     <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
-    
+
+    <ProductVersion>$(VersionMajor).$(VersionMinor).0.0</ProductVersion>
     <AssemblyVersion>$(VersionMajor).$(VersionMinor).0.0</AssemblyVersion>
     <FileVersion>$(VersionPrefix).0</FileVersion>
 
@@ -22,7 +23,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/jodufra/anonimize/master/logo.png</PackageIconUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://raw.githubusercontent.com/jodufra/anonimize/master/LICENSE.txt</PackageLicenseUrl>
-    <PackageReleaseNotes>https://github.com/jodufra/anonimize/blob/$(VersionPrefix)/releasenotes.txt</PackageReleaseNotes>
+    <PackageReleaseNotes>https://raw.githubusercontent.com/jodufra/anonimize/master/releasenotes.txt</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/jodufra/anonimize.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     
