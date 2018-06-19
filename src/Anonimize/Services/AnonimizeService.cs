@@ -5,7 +5,7 @@ namespace Anonimize.Services
 {
     public class AnonimizeService
     {
-        static readonly Lazy<ICryptoService> cryptoServiceDefault = new Lazy<ICryptoService>(() => new MD5TripleDESCryptoService());
+        static readonly Lazy<ICryptoService> cryptoServiceDefault = new Lazy<ICryptoService>(() => new TripleDESCryptoService());
 
         static ICryptoService cryptoServiceOverride;
 
