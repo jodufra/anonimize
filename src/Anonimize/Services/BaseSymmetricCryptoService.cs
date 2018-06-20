@@ -8,7 +8,7 @@ namespace Anonimize.Services
     {
         protected virtual int IvLength => 8;
         protected virtual int KeyLength => 16;
-        protected virtual int RfcIterartions => 1000;
+        protected virtual int DeriveIterations => 1000;
 
         string iv = "Anonimize:Iv";
         string key = "Anonimize:Key";
@@ -18,13 +18,8 @@ namespace Anonimize.Services
         protected byte[] GetIV()
         {
             if (ivEncrypted == null)
-            {
-                var buffer = Encoding.ASCII.GetBytes(iv);
-                using (var rfc = new Rfc2898DeriveBytes(buffer, buffer, RfcIterartions))
-                {
-                    ivEncrypted = rfc.GetBytes(IvLength);
-                }
-            }
+                ivEncrypted = GenerateEncryptedBytes(iv, DeriveIterations, IvLength);
+
             return ivEncrypted;
         }
 
@@ -61,13 +56,8 @@ namespace Anonimize.Services
         protected byte[] GetKey()
         {
             if (keyEncrypted == null)
-            {
-                var buffer = Encoding.ASCII.GetBytes(key);
-                using (var rfc = new Rfc2898DeriveBytes(buffer, buffer, RfcIterartions))
-                {
-                    keyEncrypted = rfc.GetBytes(KeyLength);
-                }
-            }
+                keyEncrypted = GenerateEncryptedBytes(key, DeriveIterations, KeyLength);
+
             return keyEncrypted;
         }
 
@@ -99,6 +89,22 @@ namespace Anonimize.Services
 
             key = string.Empty;
             keyEncrypted = value;
+        }
+
+        private static byte[] GenerateEncryptedBytes(string input, int iterations, int outputLength)
+        {
+            byte[] inputBuffer = Encoding.ASCII.GetBytes(input);
+            byte[] salt;
+
+            using (var md5 = new MD5CryptoServiceProvider())
+            {
+                salt = md5.TransformFinalBlock(inputBuffer, 0, inputBuffer.Length);
+            }
+
+            using (var rfc = new Rfc2898DeriveBytes(input, salt, iterations))
+            {
+                return rfc.GetBytes(outputLength);
+            }
         }
     }
 }
