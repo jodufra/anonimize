@@ -10,6 +10,8 @@ namespace Anonimize.Services
 {
     public abstract class BaseCryptoService : ICryptoService
     {
+        public BaseCryptoService() { }
+
         public abstract byte[] Decrypt(byte[] inputBuffer);
 
         public abstract T Decrypt<T>(string input);

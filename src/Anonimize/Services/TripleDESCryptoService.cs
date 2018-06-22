@@ -5,6 +5,9 @@ namespace Anonimize.Services
 {
     public sealed class TripleDESCryptoService : BaseSymmetricCryptoService
     {
+        protected override int IvLength => 8;
+        protected override int KeyLength => 16;
+
         /// <summary>
         /// Decrypts the specified input using <see cref="TripleDESCryptoServiceProvider"/>.
         /// </summary>
