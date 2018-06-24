@@ -60,11 +60,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassBase.cs" />
-    <Compile Include="EBase.cs" />
-    <Compile Include="IBase.cs" />
+    <Compile Include="DummyClass.cs" />
+    <Compile Include="DummyEnum.cs" />
+    <Compile Include="DummyInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SBase.cs" />
+    <Compile Include="DummyStruct.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

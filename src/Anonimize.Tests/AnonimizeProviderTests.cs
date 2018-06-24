@@ -14,11 +14,13 @@ namespace Anonimize.Tests
         public void ShouldProvideAnonimizeServiceSingleton()
         {
             var instance = AnonimizeProvider.GetInstance();
-            var otherInstance = AnonimizeProvider.GetInstance();
-
             Assert.IsNotNull(instance);
+
+            var otherInstance = AnonimizeProvider.GetInstance();
             Assert.IsNotNull(otherInstance);
-            Assert.AreEqual(instance, otherInstance);
+
+            Assert.AreEqual(instance, otherInstance, "Sequenced calls to {0}.{1} should provide the same {2}",
+                typeof(AnonimizeProvider).Name, nameof(AnonimizeProvider.GetInstance), typeof(Services.AnonimizeService).Name);
         }
     }
 }

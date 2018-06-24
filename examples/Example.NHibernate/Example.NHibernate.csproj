@@ -76,15 +76,5 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Anonimize.NHibernate\Anonimize.NHibernate.csproj">
-      <Project>{9ef26654-c3b7-4f23-962f-a9bf3c6062b0}</Project>
-      <Name>Anonimize.NHibernate</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Anonimize\Anonimize.csproj">
-      <Project>{d5949f35-7c85-4eb7-a2d7-916acf02c1d5}</Project>
-      <Name>Anonimize</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

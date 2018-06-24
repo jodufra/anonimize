@@ -12,8 +12,8 @@ namespace Anonimize.Services
 
         string iv = "Anonimize:Iv";
         string key = "Anonimize:Key";
-        byte[] ivEncrypted = null;
-        byte[] keyEncrypted = null;
+        byte[] ivEncrypted;
+        byte[] keyEncrypted;
 
         protected byte[] GetIV()
         {
@@ -91,9 +91,9 @@ namespace Anonimize.Services
             keyEncrypted = value;
         }
 
-        private static byte[] GenerateEncryptedBytes(string input, int iterations, int outputLength)
+        static byte[] GenerateEncryptedBytes(string input, int iterations, int outputLength)
         {
-            byte[] inputBuffer = Encoding.ASCII.GetBytes(input);
+            var inputBuffer = Encoding.ASCII.GetBytes(input);
             byte[] salt;
 
             using (var md5 = new MD5CryptoServiceProvider())

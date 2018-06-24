@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Anonimize.Services
 {
     public abstract class BaseCryptoService : ICryptoService
     {
-        public BaseCryptoService() { }
-
         public abstract byte[] Decrypt(byte[] inputBuffer);
 
         public abstract T Decrypt<T>(string input);
@@ -20,7 +13,7 @@ namespace Anonimize.Services
 
         public abstract string Encrypt<T>(T input);
 
-        protected byte[] Serialize<T>(T param)
+        protected static byte[] Serialize<T>(T param)
         {
             var formatter = new BinaryFormatter();
             using (var stream = new MemoryStream())
@@ -30,7 +23,7 @@ namespace Anonimize.Services
             }
         }
 
-        protected T Deserialize<T>(byte[] param)
+        protected static T Deserialize<T>(byte[] param)
         {
             var formatter = new BinaryFormatter();
             using (var stream = new MemoryStream(param))

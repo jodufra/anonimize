@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Tests.Assembly
 {
-   public class ClassBase { }
+    public struct DummyStruct { }
 }

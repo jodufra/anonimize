@@ -1,37 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Anonimize.Services;
-using Anonimize.Tests.Assembly;
 using NUnit.Framework;
 
 namespace Anonimize.Tests
 {
-    [TestFixture(typeof(bool?), typeof(TripleDESCryptoService))]
-    [TestFixture(typeof(byte?), typeof(TripleDESCryptoService))]
-    [TestFixture(typeof(DateTime?), typeof(TripleDESCryptoService))]
-    [TestFixture(typeof(decimal?), typeof(TripleDESCryptoService))]
-    [TestFixture(typeof(double?), typeof(TripleDESCryptoService))]
-    [TestFixture(typeof(Int16?), typeof(TripleDESCryptoService))]
-    [TestFixture(typeof(Int32?), typeof(TripleDESCryptoService))]
-    [TestFixture(typeof(Int64?), typeof(TripleDESCryptoService))]
-    [TestFixture(typeof(float?), typeof(TripleDESCryptoService))]
-    [TestFixture(typeof(string), typeof(TripleDESCryptoService))]
-    //[TestFixture(typeof(bool?), typeof(AesCryptoService))]
-    //[TestFixture(typeof(byte?), typeof(AesCryptoService))]
-    //[TestFixture(typeof(DateTime?), typeof(AesCryptoService))]
-    //[TestFixture(typeof(decimal?), typeof(AesCryptoService))]
-    //[TestFixture(typeof(double?), typeof(AesCryptoService))]
-    //[TestFixture(typeof(Int16?), typeof(AesCryptoService))]
-    //[TestFixture(typeof(Int32?), typeof(AesCryptoService))]
-    //[TestFixture(typeof(Int64?), typeof(AesCryptoService))]
-    //[TestFixture(typeof(float?), typeof(AesCryptoService))]
-    //[TestFixture(typeof(string), typeof(AesCryptoService))]
-    public class CryptoServiceTests<T, TCrypto> where TCrypto : ICryptoService, new()
+    public abstract class CryptoServiceTests<T>
     {
-        TCrypto cryptoService;
+        readonly ICryptoService cryptoService;
+
+        protected CryptoServiceTests(ICryptoService cryptoService)
+        {
+            this.cryptoService = cryptoService;
+        }
 
         [Datapoint]
         public bool?[] Booleans = { null, false, true };
@@ -54,18 +35,14 @@ namespace Anonimize.Tests
         [Datapoint]
         public string[] Strings = { null, string.Empty, " " };
 
-        [OneTimeSetUp]
-        public void SetUp()
+        public virtual void DecryptedValueMustBeEqualToInputValue(T[] inputs)
         {
-            cryptoService = new TCrypto();
-        }
-
-        [Theory]
-        public void DecryptedValueMustBeEqualToInputValue(T input)
-        {
-            var encryptedValue = cryptoService.Encrypt(input);
-            var decryptedValue = cryptoService.Decrypt<T>(encryptedValue);
-            Assert.AreEqual(input, decryptedValue);
+            foreach (var input in inputs)
+            {
+                var encryptedValue = cryptoService.Encrypt(input);
+                var decryptedValue = cryptoService.Decrypt<T>(encryptedValue);
+                Assert.AreEqual(input, decryptedValue);
+            }
         }
     }
 }

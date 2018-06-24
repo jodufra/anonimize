@@ -42,9 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnonimizeProviderTests.cs" />
+    <Compile Include="AesCryptoService.cs" />
+    <Compile Include="TripleDESCryptoServiceTests.cs" />
     <Compile Include="CryptoServiceTests.cs" />
     <Compile Include="AnonimizeServiceTests.cs" />
-    <Compile Include="Assembly\DummyCryptoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
